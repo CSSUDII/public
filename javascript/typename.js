@@ -1,1 +1,3 @@
-// TBA
+class typename {}
+
+module.exports.typename = typename;
