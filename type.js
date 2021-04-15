@@ -1,6 +1,8 @@
 // @type.js
 const util = require("./javascript/util")
-const type = require("./util").typename
+const { typename } = require("./util").typename
+
+const type = new typename({ valid: true })
 
 type.input("x")
 type.prefix("https")
