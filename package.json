@@ -1,0 +1,11 @@
+{
+  "name": "public",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/CSSUDII/public.git",
+  "author": "lucaslah <lucas.petrino@spycampllc.ml>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
