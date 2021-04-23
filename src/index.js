@@ -16,15 +16,7 @@ this.debug = null;
 this.config = null;
 
 // Load Config
-async loadConfig() => {
-    try {
-        await this.config = yaml.load(this.fs.readFileSync('../config.yml', 'utf8'));
-        this.logger.info('Loaded Config File');
-    } catch (e) {
-        this.logger.error('Error loading Config ' + e);
-        this.logger.warn('Using Default Settings');
-    };
-};
+functions.loadConfig(yaml, logger);
 
 loadConfig();
 
