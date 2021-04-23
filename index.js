@@ -5,11 +5,12 @@ const yaml = require('js-yaml');
 const logDoc = require('inklog.js');
 
 this.logger = logDoc;
+this.fs = require('fs')
 
 // Load Config
 async loadConfig() => {
 try {
- await this.config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
+ await this.config = yaml.load(this.fs.readFileSync('config.yml', 'utf8'));
   this.logger.info('Loaded Config File')
 } catch (e) {
   this.logger.error('Error loading Config, Using Defaults' + e)
