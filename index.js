@@ -3,11 +3,11 @@
 const express = require('express');
 const yaml = require('js-yaml');
 
+// Load Config
 try {
-  const doc = yaml.load(fs.readFileSync('config.yml', 'utf8'));
-  console.log(doc);
+  this.config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
 } catch (e) {
-  console.log(e);
+  console.log('Error loading config.yml' + e);
 }
 
 const server = express();
