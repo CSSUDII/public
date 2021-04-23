@@ -1,1 +1,3 @@
-export {};
+export {
+    loadConfig: require("./loadConfig")
+};
