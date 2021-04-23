@@ -1,10 +1,13 @@
 {
   "name": "public",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/CSSUDII/public.git",
   "author": "lucaslah <lucas.petrino@spycampllc.ml>",
   "license": "MIT",
+  "scripts": {
+        "build": "babel src --out-dir lib --copy-files"
+    },
   "dependencies": {
     "express": "^4.17.1"
   }
