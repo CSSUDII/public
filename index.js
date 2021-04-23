@@ -1,8 +1,16 @@
 // WE-BT16 API
 
-const express = require(”express”)
+const express = require('express');
+const yaml = require('js-yaml');
 
-const server = express()
+try {
+  const doc = yaml.load(fs.readFileSync('config.yml', 'utf8'));
+  console.log(doc);
+} catch (e) {
+  console.log(e);
+}
+
+const server = express();
 
 server.get('/', (req, res) => {
   return res.send('Received a GET HTTP method');
