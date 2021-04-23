@@ -15,6 +15,7 @@ try {
 }
 
 this.port = this.config.port;
+this.debug = this.config.debug || false;
 
 const server = express();
 
