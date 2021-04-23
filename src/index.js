@@ -5,6 +5,7 @@ import logger from "inklog.js";
 import fs from "fs";
 
 import { defaults } from "./Defaults";
+import functions from "./functions";
 
 this.logger = logger;
 this.fs = fs;
