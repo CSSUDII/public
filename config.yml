@@ -1,2 +1,3 @@
 # Main Config File for the API
 port: 8080
+debug: false
