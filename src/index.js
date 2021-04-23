@@ -8,7 +8,11 @@ import { defaults } from "./Defaults";
 
 this.logger = logger;
 this.fs = fs;
-this.default + defaults;
+this.default = defaults;
+
+this.port = null;
+this.debug = null;
+this.config = null;
 
 // Load Config
 async loadConfig() => {
