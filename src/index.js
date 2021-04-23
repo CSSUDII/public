@@ -18,8 +18,6 @@ this.config = null;
 // Load Config
 functions.loadConfig(yaml, logger);
 
-loadConfig();
-
 this.port = this.config.port;
 this.debug = this.config.debug;
 
