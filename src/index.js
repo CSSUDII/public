@@ -1,20 +1,24 @@
 // WE-BT16 API
-const express = require('express');
-const yaml = require('js-yaml');
-const logDoc = require('inklog.js');
+import express from "express";
+import yaml from "js-yaml";
+import logger from "inklog.js";
+import fs from "fs";
 
-this.logger = logDoc;
-this.fs = require('fs')
+import { defaults } from "./Defaults";
+
+this.logger = logger;
+this.fs = fs;
+this.default + defaults;
 
 // Load Config
 async loadConfig() => {
     try {
         await this.config = yaml.load(this.fs.readFileSync('../config.yml', 'utf8'));
-        this.logger.info('Loaded Config File')
+        this.logger.info('Loaded Config File');
     } catch (e) {
-        this.logger.error('Error loading Config, Using Defaults' + e)
+        this.logger.error('Error loading Config, Using Defaults' + e);
     };
-}
+};
 
 loadConfig();
 
@@ -24,7 +28,7 @@ this.debug = this.config.debug;
 async checks() => {
     this.logger.debug('Running Checks');
     if (!this.port) this.port = this.default.port;
-    if (!this.debug) this.debug = false;
+    if (!this.debug) this.debug = thos.default.debug;
 };
 
 const server = express();
