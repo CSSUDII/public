@@ -6,8 +6,9 @@ const yaml = require('js-yaml');
 // Load Config
 try {
   this.config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
+  console.log('Loaded Config File')
 } catch (e) {
-  console.log('Error loading config.yml' + e);
+  new Error('Error loading config.yml' + e);
 }
 
 this.port = this.config.port;
