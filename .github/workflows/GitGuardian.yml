@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   scanning:
-    name: GitGuardian scan
+    name: GitGuardian Scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
