@@ -12,7 +12,8 @@
         "commit": "node scripts/commit.git.scripts.js",
         "push": "node scripts/push.git.scripts.js",
         "cleanup": "rm -r -f lib",
-        "browserify": "browserify ./lib/index.js -t babelify --outfile bundle.js"
+        "browserify": "browserify ./lib/index.js -t babelify --outfile bundle.js",
+        "ci": "yarn install --frozen-lockfile"
     },
     "dependencies": {
         "express": "^4.17.1",
