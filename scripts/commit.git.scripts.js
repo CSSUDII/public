@@ -16,6 +16,6 @@ function main() {
     logger.info(`New Commit: ${commitMessage}`)
 };
 
-main()
+main();
 
 module.exports = main;
