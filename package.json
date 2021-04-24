@@ -10,7 +10,8 @@
         "start": "node lib/index.js",
         "test": "jest",
         "commit": "node scripts/commit.git.scripts.js",
-        "push": "node scripts/push.git.scripts.js"
+        "push": "node scripts/push.git.scripts.js",
+        "cleanup": "rm -r -f lib"
     },
     "dependencies": {
         "express": "^4.17.1",
