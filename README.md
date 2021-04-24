@@ -1,5 +1,5 @@
 # CSSUDII API
-[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg) [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/cssudii.tunnelto.dev.svg)](https://cssudii.tunnelto.dev/) ![api status](https://img.shields.io/badge/dynamic/json?label=API&query=%2Fv1%2Fplaceholders%2Fexample&url=https%3A%2F%2Fcssudii.tunnelto.dev)
+[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg) ![Website](https://img.shields.io/website?down_message=offline&label=API&up_message=online&url=https%3A%2F%2Fcssudii.tunnelto.dev)
 
 This Repo is for the CSSUDII Public API
 
