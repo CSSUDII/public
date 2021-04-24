@@ -10,6 +10,8 @@ This Repo is for the CSSUDII Public API
 ## API Usage
  TBA
 
+ Docs: https://docs-we-bt16.cssudii.tk
+
 ## Usage
 - `yarn install` Install's Dependencies
 - `yarn build` Compiles the Code
