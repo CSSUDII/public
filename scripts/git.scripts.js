@@ -4,16 +4,16 @@ const logger = require('inklog.js');
 this.args = process.argv;
 this.log = logger;
 
-if (!this.args) {
+const commitMessage = process.argv.slice(3).join(" ");
+
+if (!commitMessage) {
     return logger.warn('No Commit Message!')
 };
-
-const commitMessage = process.argv.slice(2).join(" ");
 
 function main() {
     exec('git add .');
     exec(`git commit -m "${commitMessage}"`);
-    logger.info('Commied new Commit')
+    logger.info(`New Commit: ${commitMessage}`)
 };
 
 main()
