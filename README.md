@@ -1,5 +1,5 @@
 # CSSUDII API
-[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg) ![Website](https://img.shields.io/website?down_message=offline&label=API&up_message=online&url=https%3A%2F%2Fcssudii.tunnelto.dev)
+[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg) ![Website](https://img.shields.io/website?down_message=offline&label=API&up_message=online&url=https%3A%2F%2Fcssudii.tunnelto.dev) ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m787949650-67589e69fbffafdf836b1b85)
 
 This Repo is for the CSSUDII Public API
 
