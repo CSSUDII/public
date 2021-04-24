@@ -3,14 +3,16 @@
 
 This Repo is for the CSSUDII Public API
 
+## Links
+Status Page: https://status.cssudii.tk
+Docs: https://docs-we-bt16.cssudii.tk
+
 ## Public Hosted Version
 - Main URL: https://cssudii.tunnelto.dev (Not 100% Uptime while in development)
 - URL 2: https://twilight-grass-90570.pktriot.net (Not 100% Uptime while in development)
 
 ## API Usage
  TBA
-
- Docs: https://docs-we-bt16.cssudii.tk
 
 ## Usage
 - `yarn createConfig` Makes the DB Config File, After Edit the File and put in your MongoDB URL
