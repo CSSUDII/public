@@ -8,7 +8,8 @@
     "scripts": {
         "build": "babel src --out-dir lib --copy-files",
         "start": "node lib/index.js",
-        "test": "jest"
+        "test": "jest",
+        "commit": "node scripts/git.scripts.js"
     },
     "dependencies": {
         "express": "^4.17.1",
