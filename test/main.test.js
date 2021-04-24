@@ -1,5 +1,5 @@
 import { expect } from '@jest/globals';
-import server from "../lib/Server";
+import server from "../lib/server/Server";
 
 import request from "supertest";
 
