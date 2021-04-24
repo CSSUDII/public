@@ -1,5 +1,5 @@
 # CSSUDII API
-[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg)
+[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg) [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/cssudii.tunnelto.dev.svg)](https://cssudii.tunnelto.dev/)
 
 This Repo is for the CSSUDII Public API
 
