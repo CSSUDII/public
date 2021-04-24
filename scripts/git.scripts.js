@@ -4,7 +4,7 @@ const logger = require('inklog.js');
 this.args = process.argv;
 this.log = logger;
 
-const commitMessage = process.argv.slice(3).join(" ");
+const commitMessage = process.argv.slice(2).join(" ");
 
 if (!commitMessage) {
     return logger.warn('No Commit Message!')
