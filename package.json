@@ -13,12 +13,14 @@
         "push": "node scripts/push.git.scripts.js",
         "cleanup": "rm -r -f lib",
         "browserify": "browserify ./lib/index.js -t babelify --outfile bundle.js",
-        "ci": "yarn install --frozen-lockfile"
+        "ci": "yarn install --frozen-lockfile",
+        "createConfig": "node scripts/createConfig.scripts.js"
     },
     "dependencies": {
         "express": "^4.17.1",
         "inklog.js": "^1.0.0",
-        "js-yaml": "^4.1.0"
+        "js-yaml": "^4.1.0",
+        "mongoose": "^5.12.5"
     },
     "jest": {
         "transform": {

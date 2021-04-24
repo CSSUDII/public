@@ -13,6 +13,7 @@ This Repo is for the CSSUDII Public API
  Docs: https://docs-we-bt16.cssudii.tk
 
 ## Usage
+- `yarn createConfig` Makes the DB Config File, After Edit the File and put in your MongoDB URL
 - `yarn install` Install's Dependencies
 - `yarn build` Compiles the Code
 - `yarn start` Starts the API
