@@ -4,7 +4,7 @@
 This Repo is for the CSSUDII Public API
 
 ## Public Hosted Version
-- URL: TBA
+URL: https://twilight-grass-90570.pktriot.net (Not 100% Uptime while in development)
 
 ## API Usage
  TBA
