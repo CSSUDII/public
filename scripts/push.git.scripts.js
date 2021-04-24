@@ -1,3 +1,6 @@
+const { exec } = require("child_process");
+const logger = require('inklog.js');
+
 function push() {
     exec('git push', (err, stdout, stderr) => {
         if (err) {
@@ -9,7 +12,7 @@ function push() {
         };
     });
 
-    logger.info('Pushed to GitHub')
+    logger.info('Pushing to GitHub')
 };
 
 push();
