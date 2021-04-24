@@ -4,8 +4,8 @@
 This Repo is for the CSSUDII Public API
 
 ## Public Hosted Version
-URL: https://cssudii.tunnelto.dev (Not 100% Uptime while in development)
-URL2: https://twilight-grass-90570.pktriot.net (Not 100% Uptime while in development)
+- Main URL: https://cssudii.tunnelto.dev (Not 100% Uptime while in development)
+- URL 2: https://twilight-grass-90570.pktriot.net (Not 100% Uptime while in development)
 
 ## API Usage
  TBA
