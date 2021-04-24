@@ -1,5 +1,5 @@
 # CSSUDII API
-[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node.js.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node.js.yml) [code score badge](https://www.code-inspector.com/project/21868/score/svg)
 
 This Repo is for the CSSUDII Public API
 
