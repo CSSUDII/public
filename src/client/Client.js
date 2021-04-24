@@ -1,19 +1,18 @@
-// WE-BT16 API
-import express from "express";
 import yaml from "js-yaml";
 import logger from "inklog.js";
 import fs from "fs";
 import EventEmitter from "events"
 
-import { defaults } from "./Defaults";
+import server from "../server/Server";
 
-const server = express();
+import { defaults } from "../Defaults";
 
 
 export class Client extends EventEmitter {
-    constructor() {
+    constructor(test) {
         super();
 
+        this.test = test;
         this.logger = logger;
         this.fs = fs;
         this.default = defaults;
@@ -45,27 +44,21 @@ export class Client extends EventEmitter {
 
     };
 
-    get() {
-        server.get('/', (req, res) => {
-            if (this.debug) {
-                this.logger.debug('Received a GET HTTP method')
-                this.emit('getEvent');
-            };
-            return res.send('Received a GET HTTP method');
-        });
-    };
-
     listen() {
-        server.listen(this.port, () =>
-            this.logger.info(`API Live on: ${this.port}`) && this.emit('ready'),
-        );
+        if (this.test) {
+            this.server = server.listen(this.port);
+        } else {
+            this.server = server.listen(this.port, () =>
+                this.logger.info(`API Live on: ${this.port}`) && this.emit('ready'),
+            );
+        };
     };
 
     load() {
         this.loadConfig();
         this.checks();
-        this.get();
         this.listen();
+        return;
     };
 
 };

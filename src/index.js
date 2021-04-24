@@ -1,3 +1,3 @@
-import { Client } from "./Client";
+import { Client } from "./client/Client";
 const client = new Client();
 client.load();
