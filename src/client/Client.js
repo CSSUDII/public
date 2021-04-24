@@ -63,6 +63,21 @@ export class Client extends EventEmitter {
         });
     };
 
+    dbInit() {
+        this.db = mongoose.connection;
+        this.db.on('error', (e) => { this.logger.error(e) }) && this.emit('error', `db error: ${e}`);
+        this.db.once('open', () => {
+            this.logger.info('[DB] Connected to MongoDB')
+        });
+    };
+
+    dbDataSchema() {
+        this.placeHoldersSchema = new mongoose.Schema({
+            name: String,
+            data: String,
+        });
+    };
+
     listen() {
         if (this.test) {
             this.server = server.listen(this.port);
@@ -77,6 +92,8 @@ export class Client extends EventEmitter {
         this.loadConfig();
         this.checks();
         this.connectDB();
+        this.dbInit();
+        this.dbDataSchema();
         this.listen();
         return;
     };
