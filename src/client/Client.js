@@ -57,15 +57,24 @@ export class Client extends EventEmitter {
     };
 
     connectDB() {
-        mongoose.connect(this.dbURL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        try {
+            mongoose.connect(this.dbURL, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
+        } catch (e) {
+            this.logger.error('Error Connecting to DB')
+        };
     };
 
     dbInit() {
         this.db = mongoose.connection;
-        this.db.on('error', (e) => { this.logger.error(e) }) && this.emit('error', `db error: ${e}`);
+
+        this.db.on('error', (e) => {
+            this.logger.error(e);
+            this.emit('error', `db error: ${e}`);
+        });
+
         this.db.once('open', () => {
             this.logger.info('[DB] Connected to MongoDB');
         });
