@@ -17,8 +17,10 @@ class placeholdersRouter {
             };
         });
 
-        this.router.get('/:name', findPlaceholder, (req, res, next) => {
-            res.json(res.placeholder); // Add Data Soon!
+        this.router.get('/:name', (req, res, next) => {
+            // res.json(res.placeholder); // Will Crash App
+            // Read: https://mongoosejs.com/docs/queries.html
+            res.json({ message: 'Not Working Yet' });
         });
 
         this.router.get('/id/:id', findPlaceholderbyID, (req, res, next) => {
@@ -41,21 +43,26 @@ class placeholdersRouter {
     };
 };
 
-async function findPlaceholder(req, res, next) {
-    var placeholder;
-
-    try {
-        placeholder = await Placeholder.find(req.params.name);
-        if (placeholder == null) {
-            return res.status(404).json({ message: "Placeholder not Found" });
-        };
-    } catch (err) {
-        return res.status(500).json({ message: err.message });
-    };
-
-    res.placeholder = placeholder;
-    next();
-};
+// Not Working Right Now
+// TODO: Fix
+// async function findPlaceholder(req, res, next) {
+//    var placeholder;
+//
+//    try {
+//        placeholder = await Placeholder.findOne({ 'name': req.params.name }, (err, output) => {
+//            if (err) return res.status(500).json({ message: err.message });
+//            console.log(output.name);
+//        });
+//        if (placeholder == null) {
+//            return res.status(404).json({ message: "Placeholder not Found" });
+//        };
+//   } catch (err) {
+//        return res.status(500).json({ message: err.message });
+//    };
+//
+//    res.placeholder = placeholder;
+//    next();
+// };
 
 
 async function findPlaceholderbyID(req, res, next) {
