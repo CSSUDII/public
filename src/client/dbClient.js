@@ -39,13 +39,6 @@ export class dbClient extends EventEmitter {
             this.logger.info('[DB] Connected to MongoDB');
         });
 
-        this.placeHoldersSchema = new mongoose.Schema({
-            name: String,
-            data: String,
-        });
-
-        this.placeholdersDB = mongoose.model('placeholdersDB', this.placeHoldersSchema);
-
     };
 
 };

@@ -4,6 +4,7 @@ import fs from "fs";
 import EventEmitter from "events"
 
 import server from "../server/Server";
+import { dbClient } from "./dbClient";
 
 import { defaults } from "../Defaults";
 
@@ -62,6 +63,7 @@ export class Client extends EventEmitter {
     load() {
         this.loadConfig();
         this.checks();
+        new dbClient();
         this.listen();
         return;
     };
