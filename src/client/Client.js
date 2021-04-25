@@ -2,7 +2,6 @@ import yaml from "js-yaml";
 import logger from "inklog.js";
 import fs from "fs";
 import EventEmitter from "events"
-import mongoose from "mongoose";
 
 import server from "../server/Server";
 
@@ -30,13 +29,6 @@ export class Client extends EventEmitter {
             this.emit('error', e);
         };
 
-        try {
-            this.dbConfig = yaml.load(this.fs.readFileSync('./config/db.config.yml', 'utf8'));
-        } catch (e) {
-            this.emit('error', e);
-            throw new Error('Error loading dbConfig' + e);
-        }
-
     };
 
     checks() {
@@ -45,7 +37,8 @@ export class Client extends EventEmitter {
             this.port = this.config.port;
             this.debug = this.config.debug;
             // Databace Config
-            this.dbURL = this.dbConfig.url;
+            // Moved to dbClient
+
             this.emit('runningChecks');
         } catch (e) {
             this.emit('error', e);
@@ -54,41 +47,6 @@ export class Client extends EventEmitter {
         if (!this.port) this.port = this.default.port;
         if (!this.debug) this.debug = this.default.debug;
 
-    };
-
-    connectDB() {
-        try {
-            mongoose.connect(this.dbURL, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            });
-        } catch (e) {
-            this.logger.error('Error Connecting to DB')
-        };
-    };
-
-    dbInit() {
-        this.db = mongoose.connection;
-
-        this.db.on('error', (e) => {
-            this.logger.error(e);
-            this.emit('error', `db error: ${e}`);
-        });
-
-        this.db.once('open', () => {
-            this.logger.info('[DB] Connected to MongoDB');
-        });
-    };
-
-    dbDataSchema() {
-        this.placeHoldersSchema = new mongoose.Schema({
-            name: String,
-            data: String,
-        });
-    };
-
-    dbDataModel() {
-        this.placeholdersDB = mongoose.model('placeholdersDB', this.placeHoldersSchema);
     };
 
     listen() {
@@ -104,10 +62,6 @@ export class Client extends EventEmitter {
     load() {
         this.loadConfig();
         this.checks();
-        this.connectDB();
-        this.dbInit();
-        this.dbDataSchema();
-        this.dbDataModel();
         this.listen();
         return;
     };
