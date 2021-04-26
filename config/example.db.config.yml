@@ -1,2 +1,3 @@
 # Database Config File
 url: 'MONGODB URL'
+token: 'some random token'
