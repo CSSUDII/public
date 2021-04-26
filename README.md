@@ -15,7 +15,7 @@ This Repo is for the CSSUDII Public API
  TBA
 
 ## Local Install
-- `yarn createConfig` Makes the DB Config File, After Edit the File and put in your MongoDB URL
+- Make a .env file add fill it in based on the .example.env file
 - `yarn install` Install's Dependencies
 - `yarn build` Compiles the Code
 - `yarn start` Starts the API

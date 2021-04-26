@@ -13,8 +13,7 @@
         "push": "node scripts/push.git.scripts.js",
         "cleanup": "rm -r -f lib",
         "browserify": "browserify ./lib/index.js -t babelify --outfile bundle.js",
-        "ci": "yarn install --frozen-lockfile",
-        "createConfig": "node scripts/createConfig.scripts.js"
+        "ci": "yarn install --frozen-lockfile"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
