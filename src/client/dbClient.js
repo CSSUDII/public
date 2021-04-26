@@ -38,7 +38,5 @@ export class dbClient extends EventEmitter {
         this.db.once('open', () => {
             this.logger.info('[DB] Connected to MongoDB');
         });
-
     };
-
 };
