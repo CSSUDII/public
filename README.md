@@ -5,6 +5,7 @@ This Repo is for the CSSUDII Public API
 
 ## Links
 - Status Page: https://status.cssudii.tk
+- Uptime Status Page: https://uptime.status.cssudii.tk
 - Docs: https://docs-we-bt16.cssudii.tk
 
 ## Public Hosted Version
