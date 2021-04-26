@@ -5,7 +5,7 @@ const router = Router();
 class indexRouter {
     constructor() {
         router.get('/', (req, res, next) => {
-            res.send('Main Site, Coming soon!')
+            res.send('Hello World')
         });
     };
 };

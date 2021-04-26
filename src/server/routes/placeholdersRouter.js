@@ -24,7 +24,7 @@ class placeholdersRouter {
         });
 
         this.router.get('/id/:id', findPlaceholderbyID, (req, res, next) => {
-            res.json(res.placeholderByID); // Add Data Soon!
+            res.json(res.placeholderByID);
         });
 
         //   this.router.post('/', (req, res, next) => {
