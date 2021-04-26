@@ -1,12 +1,11 @@
 import { Router } from "express";
 import User from "../../models/Users";
 
+import config from "../../../config/db.config.js";
+
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import bodyParser from "body-parser";
-
-import yaml from "js-yaml";
-import fs from "fs";
 
 import checkToken from "../RouterFunctions/checkToken";
 
@@ -14,10 +13,6 @@ const router = Router();
 
 class UsersRouter {
     constructor() {
-
-        this.dbConfig = yaml.load(fs.readFileSync('./config/db.config.yml', 'utf8'));
-
-        const dbConfig = yaml.load(fs.readFileSync('./config/db.config.yml', 'utf8'));
 
         router.use(bodyParser.urlencoded({ extended: false }));
         router.use(bodyParser.json());
@@ -34,7 +29,7 @@ class UsersRouter {
 
                 function(err, user) {
                     if (err) return res.status(500).send("There was a problem registering the user.")
-                    var token = jwt.sign({ id: user._id }, dbConfig.token, {
+                    var token = jwt.sign({ id: user._id }, config.token, {
                         expiresIn: 86400
                     });
                     res.status(200).send({ auth: true, token: token });
@@ -60,7 +55,7 @@ class UsersRouter {
                 var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
                 if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
 
-                var token = jwt.sign({ id: user._id }, dbConfig.token, {
+                var token = jwt.sign({ id: user._id }, config.token, {
                     expiresIn: 86400
                 });
 

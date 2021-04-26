@@ -1,18 +1,17 @@
 import mongoose from "mongoose";
-import yaml from "js-yaml";
 import logger from "inklog.js";
-import fs from "fs";
-import EventEmitter from "events"
+import EventEmitter from "events";
+
+import config from "../../config/db.config";
 
 export class dbClient extends EventEmitter {
     constructor() {
         super();
 
         this.logger = logger;
-        this.fs = fs;
 
         try {
-            this.dbConfig = yaml.load(fs.readFileSync('./config/db.config.yml', 'utf8'));
+            this.dbConfig = config;
         } catch (e) {
             throw new Error('Error loading dbConfig' + e);
         };

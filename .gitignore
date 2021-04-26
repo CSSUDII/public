@@ -5,3 +5,4 @@ node_modules
 *.DS_STORE
 local
 config/db.config.yml
+.env
