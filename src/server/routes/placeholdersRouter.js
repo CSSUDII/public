@@ -1,6 +1,9 @@
 import { Router } from "express";
 import Placeholder from "../../models/Placeholders";
 
+import User from "../../models/Users";
+import checkToken from "../RouterFunctions/checkToken";
+
 const router = Router();
 
 class placeholdersRouter {
@@ -23,8 +26,12 @@ class placeholdersRouter {
             res.json({ message: 'Not Working Yet' });
         });
 
-        this.router.get('/id/:id', findPlaceholderbyID, (req, res, next) => {
-            res.json(res.placeholderByID);
+        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req, res, next) => {
+            User.findById(req.userId, { password: 0 }, (err, user) => {
+                if (err) return res.status(500).send("There was a problem finding the user.");
+                if (!user) return res.status(404).send("No user was found.");
+                res.json(res.placeholderByID);
+            });
         });
 
         //   this.router.post('/', (req, res, next) => {
@@ -82,7 +89,9 @@ async function findPlaceholderbyID(req, res, next) {
 };
 
 
-async function checkAuth(req, res, next) {}; // Upcomming Auth...
+async function checkAuth(req, res, next) {
+    next()
+}; // Upcomming Auth...
 
 
 new placeholdersRouter();
