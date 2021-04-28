@@ -54,7 +54,7 @@ export class Client extends EventEmitter {
         if (this.test) {
             this.server = server.listen(this.port);
         } else {
-            this.server = server.listen(this.port || 8080, () =>
+            this.server = server.listen(process.env.PORT || this.port || 8080, () =>
                 this.logger.info(`API Live on: ${this.port}`) && this.emit('ready'),
             );
         };
