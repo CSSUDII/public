@@ -24,7 +24,7 @@
         "inklog.js": "^1.0.0",
         "js-yaml": "^4.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.12.5"
+        "mongoose": "^5.12.6"
     },
     "jest": {
         "transform": {
