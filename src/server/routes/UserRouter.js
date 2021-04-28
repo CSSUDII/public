@@ -23,7 +23,7 @@ class UsersRouter {
             next();
         });
 
-        router.post('/register', (req, res) => {
+        router.post('/register', async(req, res) => {
 
             var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
