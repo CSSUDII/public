@@ -6,3 +6,7 @@ node_modules
 local
 config/db.config.yml
 .env
+*node_modules
+*.env
+backend/node_modules
+backend/.env

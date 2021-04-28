@@ -16,6 +16,7 @@
         "ci": "yarn install --frozen-lockfile"
     },
     "dependencies": {
+        "babel-jest": "24.9.0",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "dotenv": "^8.2.0",
@@ -34,10 +35,10 @@
         "@babel/cli": "^7.13.16",
         "@babel/core": "^7.13.16",
         "@babel/preset-env": "^7.0.0",
-        "babel-jest": "^26.6.3",
+        "axios": "^0.21.1",
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
-        "jest": "^26.6.3",
+        "jest": "26.6.0",
         "supertest": "^6.1.3"
     }
 }

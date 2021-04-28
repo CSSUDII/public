@@ -2,16 +2,17 @@ import jwt from "jsonwebtoken";
 
 import config from "../../../config/db.config.js";
 
-function checkToken(req, res, next) {
-    var token = req.headers['x-access-token'];
-    if (!token) return res.status(403).send({ auth: false, message: 'No token was provided.' });
+const checkToken = (req, res, next) => {
+    const token = req.header("auth-token");
+    if (!token) return res.status(401).json({ auth: false, error: "No token was provided." });
 
-    jwt.verify(token, config.token, (err, decoded) => {
-        if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-
-        req.userId = decoded.id;
+    try {
+        const verified = jwt.verify(token, config.token);
+        req.user = verified;
         next();
-    });
+    } catch (err) {
+        res.status(400).json({ auth: false, error: "Failed to authenticate token." });
+    }
 };
 
 export default checkToken;

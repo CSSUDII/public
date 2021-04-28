@@ -17,9 +17,20 @@ class UsersRouter {
         router.use(bodyParser.urlencoded({ extended: false }));
         router.use(bodyParser.json());
 
+        router.use((req, res, next) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
+            next();
+        });
+
         router.post('/register', (req, res) => {
 
             var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+
+            const doseEmailExist = await User.findOne({ email: req.body.email });
+
+            if (doseEmailExist)
+                return res.status(400).json({ error: "Email already exists" });
 
             User.create({
                     name: req.body.name,
@@ -46,20 +57,27 @@ class UsersRouter {
 
         });
 
-        router.post('/login', (req, res) => {
+        router.post("/login", async(req, res) => {
+            const user = await User.findOne({ email: req.body.email });
 
-            User.findOne({ email: req.body.email }, (err, user) => {
-                if (err) return res.status(500).send(`Server Error: ${err}`);
-                if (!user) return res.status(404).send('No user was found.');
+            if (!user) return res.status(400).json({ error: "No user was found" });
 
-                var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-                if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+            const validPassword = await bcrypt.compare(req.body.password, user.password);
+            if (!validPassword)
+                return res.status(400).json({ error: "Password is wrong", auth: false, token: null });
 
-                var token = jwt.sign({ id: user._id }, config.token, {
-                    expiresIn: 86400
-                });
+            const token = jwt.sign({
+                    name: user.name,
+                    id: user._id,
+                },
+                config.token
+            );
 
-                res.status(200).send({ auth: true, token: token });
+            res.header("auth-token", token).json({
+                error: null,
+                data: {
+                    token,
+                },
             });
         });
 
