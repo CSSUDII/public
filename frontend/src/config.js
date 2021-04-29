@@ -1,5 +1,5 @@
 const config = {
-    baseUrl: "https://cssudii.tunnelto.dev/v1", //no trialing slash here
+    baseUrl: "https://cssudii.tunnelto.dev/v1",
 };
 
 export default config;
