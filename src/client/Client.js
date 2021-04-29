@@ -55,7 +55,7 @@ export class Client extends EventEmitter {
             this.server = server.listen(this.port);
         } else {
             const port = process.env.PORT || this.port || 8080;
-            this.server = server.listen(port, "0.0.0.0", () =>
+            this.server = server.listen(port, "0.0.0.0", () => // Bind on 0.0.0.0, It allows you to access the API from any IP
                 this.logger.info(`API Live on: ${port}`) && this.emit('ready'),
             );
         };
