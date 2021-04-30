@@ -3212,10 +3212,10 @@ inherits@2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
-inklog.js@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/inklog.js/-/inklog.js-1.0.0.tgz#71f4266b703f6161a52dcbcbb3fc357b4cb5a1ac"
-  integrity sha512-UDfSLr+FYtVnCWx6/K12uNmfm5LhfMm90EyfukqzwMGVltCD/cWvsulWTvuyw059aqhZA3pE89ZKsK8OkzYrKg==
+inklog.js@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/inklog.js/-/inklog.js-1.1.1.tgz#601ff7ed004135c90f111c5045887ca8586b5349"
+  integrity sha512-1CvkZWuQxUUMSCehKwxpFB7Nu8NJ9zA4Ktpx+KDILLxi9VRzVmBwCLs/4UtfQC7H/oXX2s+1OvGtBOK38YYZqw==
   dependencies:
     chalk "^4.1.1"
 
