@@ -1,2 +1,2 @@
 *.ts linguist-language=TypeScript
-src/*ts linguist-language=TypeScript
+src/*.ts linguist-language=TypeScript
