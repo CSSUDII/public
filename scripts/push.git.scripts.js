@@ -6,9 +6,9 @@ function push() {
         if (err) {
             logger.error(err);
         } else if (stdout) {
-            logger.debug(stdout);
+            logger.info(stdout);
         } else if (stderr) {
-            logger.debug(stderr);
+            logger.info(stderr);
         };
     });
 
