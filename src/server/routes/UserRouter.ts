@@ -1,7 +1,7 @@
-import { Router } from "express";
+import { NextFunction, Router, Response, Request } from "express";
 import User from "../../models/Users";
 
-import config from "../../../config/db.config.js";
+import config from "../../config/db.config";
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -9,11 +9,19 @@ import bodyParser from "body-parser";
 
 import checkToken from "../RouterFunctions/checkToken";
 
+import rateLimit from "express-rate-limit";
+
 const router = Router();
 
 class UsersRouter {
     constructor() {
 
+        const limiter = rateLimit({
+            windowMs: 15 * 60 * 1000, 
+            max: 100,
+            message: "You are being rate limited!"
+        });
+        
         router.use(bodyParser.urlencoded({ extended: false }));
         router.use(bodyParser.json());
 
@@ -39,16 +47,18 @@ class UsersRouter {
                 },
 
                 function(err, user) {
+                    const configToken: any = config.token
                     if (err) return res.status(500).send("There was a problem registering the user.")
-                    var token = jwt.sign({ id: user._id }, config.token, {
+                    var token = jwt.sign({ id: user._id }, configToken, {
                         expiresIn: 86400
                     });
                     res.status(200).send({ auth: true, token: token });
                 });
         });
 
-        router.get('/me', checkToken, (req, res, next) => {
+        router.get('/me', checkToken, (req: Request, res: Response, next: NextFunction) => {
 
+            // @ts-ignore what can you do?
             User.findById(req.userId, { password: 0 }, (err, user) => {
                 if (err) return res.status(500).send("There was a problem finding the user.");
                 if (!user) return res.status(404).send("No user was found.");
@@ -66,11 +76,14 @@ class UsersRouter {
             if (!validPassword)
                 return res.status(400).json({ error: "Password is wrong", auth: false, token: null });
 
+
+            const configToken: any = config.token;
+
             const token = jwt.sign({
                     name: user.name,
                     id: user._id,
                 },
-                config.token
+                configToken
             );
 
             res.header("auth-token", token).json({

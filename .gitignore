@@ -11,3 +11,5 @@ config/db.config.yml
 frontend/node_modules
 frontend/.env
 frontend/build
+yarn-error.log
+@env

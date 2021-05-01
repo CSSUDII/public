@@ -2,9 +2,15 @@ import mongoose from "mongoose";
 import logger from "inklog.js";
 import EventEmitter from "events";
 
-import config from "../../config/db.config";
+import config from "../config/db.config";
 
 export class dbClient extends EventEmitter {
+
+    public logger: any;
+    public dbConfig: typeof config;
+    public dbURL: any;
+    public db: mongoose.Connection;
+
     constructor() {
         super();
 

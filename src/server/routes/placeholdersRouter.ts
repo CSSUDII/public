@@ -4,20 +4,26 @@ import Placeholder from "../../models/Placeholders";
 import User from "../../models/Users";
 import checkToken from "../RouterFunctions/checkToken";
 
+// Import for Types
+import { Request, Response, NextFunction } from "express";
+
 const router = Router();
 
 class placeholdersRouter {
+
+    public router: Router;
+
     constructor() {
 
         this.router = router;
 
-        this.router.use((req, res, next) => {
+        this.router.use((req: Request, res: Response, next: NextFunction) => {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
             next();
         });
 
-        this.router.get('/', async(req, res, next) => {
+        this.router.get('/', async(req: Request, res: Response, next: NextFunction) => {
             try {
                 const placeholders = await Placeholder.find();
                 res.json(placeholders);
@@ -26,33 +32,20 @@ class placeholdersRouter {
             };
         });
 
-        this.router.get('/:name', (req, res, next) => {
+        this.router.get('/:name', (req: Request, res: Response, next: NextFunction) => {
             // res.json(res.placeholder); // Will Crash App
             // Read: https://mongoosejs.com/docs/queries.html
             res.json({ message: 'Not Working Yet' });
         });
 
-        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req, res, next) => {
-            User.findById(req.userId, { password: 0 }, (err, user) => {
-                if (err) return res.status(500).send("There was a problem finding the user.");
-                if (!user) return res.status(404).send("No user was found.");
-                res.json(res.placeholderByID);
+        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response, next: NextFunction) => {
+            // @ts-ignore
+            User.findById(req.userId, { password: 0 }, (err, user) => { // @ts-ignore
+                if (err) return res.status(500).send("There was a problem finding the user."); // @ts-ignore
+                if (!user) return res.status(404).send("No user was found."); // @ts-ignore
+                res.json(res.placeholderByID); // @ts-ignore
             });
         });
-
-        //   this.router.post('/', (req, res, next) => {
-        //     const placeholder = new Placeholder({
-        //       name: req.body.name,
-        //       data: req.body.data
-        //       });
-        //
-        //          try {
-        //            const newPlaceholder = placeholder.save();
-        //          res.status(201).json({ newPlaceholder });
-        //    } catch {
-        //      res.status(400).json({ message: err.message });
-        //  };
-        // });
     };
 };
 
@@ -78,7 +71,7 @@ class placeholdersRouter {
 // };
 
 
-async function findPlaceholderbyID(req, res, next) {
+async function findPlaceholderbyID(req: Request, res: Response, next: NextFunction) {
     var placeholder;
 
     try {
@@ -90,14 +83,10 @@ async function findPlaceholderbyID(req, res, next) {
         return res.status(500).json({ message: err.message });
     };
 
+    // @ts-ignore
     res.placeholderByID = placeholder;
     next();
 };
-
-
-async function checkAuth(req, res, next) {
-    next()
-}; // Upcomming Auth...
 
 
 new placeholdersRouter();

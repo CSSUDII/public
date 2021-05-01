@@ -8,9 +8,23 @@ import { dbClient } from "./dbClient";
 
 import { defaults } from "../Defaults";
 
+import "regenerator-runtime/runtime.js";
+
 
 export class Client extends EventEmitter {
-    constructor(test) {
+
+    public test: boolean;
+    public logger: any;
+    public fs: any;
+    public default: typeof defaults;
+    public config: any;
+
+    public port: number | undefined;
+    public debug: boolean | undefined;
+
+    public server: any
+
+    constructor(test: boolean) {
         super();
 
         this.test = test;
@@ -19,7 +33,7 @@ export class Client extends EventEmitter {
         this.default = defaults;
     }
 
-    loadConfig() {
+   private loadConfig() {
         try {
             this.config = yaml.load(this.fs.readFileSync('./config.yml', 'utf8'));
             this.logger.info('Loaded Config File');
@@ -32,7 +46,7 @@ export class Client extends EventEmitter {
 
     };
 
-    checks() {
+   private checks() {
         try {
             // Main Config
             this.port = this.config.port;
@@ -50,18 +64,22 @@ export class Client extends EventEmitter {
 
     };
 
-    listen() {
+   private listen() {
         if (this.test) {
             this.server = server.listen(this.port);
         } else {
-            const port = process.env.PORT || this.port || 8080;
+            if (process.env.PORT) {
+                // Do Stuff
+            }
+
+            const port: number = this.port || 8080;
             this.server = server.listen(port, "0.0.0.0", () => // Bind on 0.0.0.0, It allows you to access the API from any IP
                 this.logger.info(`API Live on: ${port}`) && this.emit('ready'),
             );
         };
     };
 
-    load() {
+   public load() {
         this.loadConfig();
         this.checks();
         new dbClient();
