@@ -1,4 +1,6 @@
-import { NextFunction, Router, Response, Request } from "express";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Router, Response, Request } from "express";
 import User from "../../models/Users";
 
 import config from "../../config/db.config";
@@ -16,6 +18,7 @@ const router = Router();
 class UsersRouter {
     constructor() {
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const limiter = rateLimit({
             windowMs: 15 * 60 * 1000, 
             max: 100,
@@ -31,9 +34,9 @@ class UsersRouter {
             next();
         });
 
-        router.post('/register', async(req, res) => {
+        router.post('/register', async(req: Request, res: Response) => {
 
-            var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+            const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
             const doseEmailExist = await User.findOne({ email: req.body.email });
 
@@ -49,16 +52,16 @@ class UsersRouter {
                 function(err, user) {
                     const configToken: any = config.token
                     if (err) return res.status(500).send("There was a problem registering the user.")
-                    var token = jwt.sign({ id: user._id }, configToken, {
+                    const token = jwt.sign({ id: user._id }, configToken, {
                         expiresIn: 86400
                     });
                     res.status(200).send({ auth: true, token: token });
                 });
         });
 
-        router.get('/me', checkToken, (req: Request, res: Response, next: NextFunction) => {
+        router.get('/me', checkToken, (req: Request, res: Response) => {
 
-            // @ts-ignore what can you do?
+            // @ts-ignore
             User.findById(req.userId, { password: 0 }, (err, user) => {
                 if (err) return res.status(500).send("There was a problem finding the user.");
                 if (!user) return res.status(404).send("No user was found.");
@@ -97,8 +100,8 @@ class UsersRouter {
         router.get('/logout', (req, res) => {
             res.status(200).send({ auth: false, token: null });
         });
-    };
-};
+    }
+}
 
 new UsersRouter;
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import { Router } from "express";
 import Placeholder from "../../models/Placeholders";
 
@@ -23,22 +25,22 @@ class placeholdersRouter {
             next();
         });
 
-        this.router.get('/', async(req: Request, res: Response, next: NextFunction) => {
+        this.router.get('/', async(req: Request, res: Response) => {
             try {
                 const placeholders = await Placeholder.find();
                 res.json(placeholders);
             } catch (err) {
                 res.status(500).json({ message: err.message });
-            };
+            }
         });
 
-        this.router.get('/:name', (req: Request, res: Response, next: NextFunction) => {
+        this.router.get('/:name', (req: Request, res: Response) => {
             // res.json(res.placeholder); // Will Crash App
             // Read: https://mongoosejs.com/docs/queries.html
             res.json({ message: 'Not Working Yet' });
         });
 
-        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response, next: NextFunction) => {
+        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response) => {
             // @ts-ignore
             User.findById(req.userId, { password: 0 }, (err, user) => { // @ts-ignore
                 if (err) return res.status(500).send("There was a problem finding the user."); // @ts-ignore
@@ -46,8 +48,8 @@ class placeholdersRouter {
                 res.json(res.placeholderByID); // @ts-ignore
             });
         });
-    };
-};
+    }
+}
 
 // Not Working Right Now
 // TODO: Fix
@@ -72,21 +74,21 @@ class placeholdersRouter {
 
 
 async function findPlaceholderbyID(req: Request, res: Response, next: NextFunction) {
-    var placeholder;
+    let placeholder;
 
     try {
         placeholder = await Placeholder.findById(req.params.id);
         if (placeholder == null) {
             return res.status(404).json({ message: "Placeholder not Found" });
-        };
+        }
     } catch (err) {
         return res.status(500).json({ message: err.message });
-    };
+    }
 
     // @ts-ignore
     res.placeholderByID = placeholder;
     next();
-};
+}
 
 
 new placeholdersRouter();

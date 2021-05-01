@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import yaml from "js-yaml";
 import logger from "inklog.js";
 import fs from "fs";
@@ -42,9 +43,9 @@ export class Client extends EventEmitter {
             this.logger.error('Error loading Config ' + e);
             this.logger.warn('Using Default Settings');
             this.emit('error', e);
-        };
+        }
 
-    };
+    }
 
    private checks() {
         try {
@@ -57,12 +58,12 @@ export class Client extends EventEmitter {
             this.emit('runningChecks');
         } catch (e) {
             this.emit('error', e);
-        };
+        }
 
         if (!this.port) this.port = this.default.port;
         if (!this.debug) this.debug = this.default.debug;
 
-    };
+    }
 
    private listen() {
         if (this.test) {
@@ -76,15 +77,15 @@ export class Client extends EventEmitter {
             this.server = server.listen(port, "0.0.0.0", () => // Bind on 0.0.0.0, It allows you to access the API from any IP
                 this.logger.info(`API Live on: ${port}`) && this.emit('ready'),
             );
-        };
-    };
+        }
+    }
 
+   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
    public load() {
         this.loadConfig();
         this.checks();
         new dbClient();
-        this.listen();
-        return;
-    };
+       return this.listen();
+    }
 
-};
+}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from "mongoose";
 import logger from "inklog.js";
 import EventEmitter from "events";
@@ -20,7 +21,7 @@ export class dbClient extends EventEmitter {
             this.dbConfig = config;
         } catch (e) {
             throw new Error('Error loading dbConfig' + e);
-        };
+        }
 
         this.dbURL = this.dbConfig.url;
 
@@ -31,7 +32,7 @@ export class dbClient extends EventEmitter {
             });
         } catch (e) {
             this.logger.error('Error Connecting to DB')
-        };
+        }
 
         this.db = mongoose.connection;
 
@@ -43,5 +44,5 @@ export class dbClient extends EventEmitter {
         this.db.once('open', () => {
             this.logger.info('[DB] Connected to MongoDB');
         });
-    };
-};
+    }
+}

@@ -32,7 +32,7 @@ class Server {
 
         if (process.env.NODE_ENV === 'development') {
             server.use(morgan('dev'));
-        };
+        }
 
         const hstsMiddleware = hsts({
             maxAge: 1234000
@@ -46,8 +46,8 @@ class Server {
             }
         })
 
-    };
-};
+    }
+}
 
 new Server();
 
