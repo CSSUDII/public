@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Router, Response, Request } from "express";
+import { Router, Response, Request, NextFunction } from "express";
 import User from "../../models/Users";
 
 import config from "../../config/db.config";
@@ -28,7 +28,7 @@ class UsersRouter {
         router.use(bodyParser.urlencoded({ extended: false }));
         router.use(bodyParser.json());
 
-        router.use((req, res, next) => {
+        router.use((req: Request, res: Response, next: NextFunction) => {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
             next();
@@ -62,10 +62,10 @@ class UsersRouter {
         router.get('/me', checkToken, (req: Request, res: Response) => {
 
             // @ts-ignore
-            User.findById(req.userId, { password: 0 }, (err, user) => {
+           return User.findById(req.userId, { password: 0 }, (err, user) => {
                 if (err) return res.status(500).send("There was a problem finding the user.");
                 if (!user) return res.status(404).send("No user was found.");
-                res.status(200).send(user);
+               return res.status(200).send(user);
             });
 
         });
@@ -76,8 +76,7 @@ class UsersRouter {
             if (!user) return res.status(400).json({ error: "No user was found" });
 
             const validPassword = await bcrypt.compare(req.body.password, user.password);
-            if (!validPassword)
-                return res.status(400).json({ error: "Password is wrong", auth: false, token: null });
+            if (!validPassword) return res.status(400).json({ error: "Password is wrong", auth: false, token: null });
 
 
             const configToken: any = config.token;
@@ -89,7 +88,7 @@ class UsersRouter {
                 configToken
             );
 
-            res.header("auth-token", token).json({
+           return res.header("x-access-token", token).json({
                 error: null,
                 data: {
                     token,
@@ -98,7 +97,7 @@ class UsersRouter {
         });
 
         router.get('/logout', (req, res) => {
-            res.status(200).send({ auth: false, token: null });
+           return res.status(200).send({ auth: false, token: null });
         });
     }
 }

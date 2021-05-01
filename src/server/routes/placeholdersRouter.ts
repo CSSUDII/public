@@ -28,7 +28,7 @@ class placeholdersRouter {
         this.router.get('/', async(req: Request, res: Response) => {
             try {
                 const placeholders = await Placeholder.find();
-                res.json(placeholders);
+               return res.json(placeholders);
             } catch (err) {
                 res.status(500).json({ message: err.message });
             }
@@ -37,15 +37,16 @@ class placeholdersRouter {
         this.router.get('/:name', (req: Request, res: Response) => {
             // res.json(res.placeholder); // Will Crash App
             // Read: https://mongoosejs.com/docs/queries.html
-            res.json({ message: 'Not Working Yet' });
+           return res.json({ message: 'Not Working Yet' });
         });
 
-        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response, next: NextFunction) => {
             // @ts-ignore
-            User.findById(req.userId, { password: 0 }, (err, user) => { // @ts-ignore
+           return User.findById(req.userId, { password: 0 }, (err, user) => { // @ts-ignore
                 if (err) return res.status(500).send("There was a problem finding the user."); // @ts-ignore
                 if (!user) return res.status(404).send("No user was found."); // @ts-ignore
-                res.json(res.placeholderByID); // @ts-ignore
+               return res.json(res.placeholderByID); // @ts-ignore
             });
         });
     }

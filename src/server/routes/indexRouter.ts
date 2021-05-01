@@ -6,7 +6,7 @@ const router = Router();
 class indexRouter {
     constructor() {
         router.get('/', (req: Request, res: Response) => {
-            res.send('Hello World')
+           return res.send('Hello World')
         });
     }
 }
