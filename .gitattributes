@@ -3,3 +3,4 @@ src/*.ts linguist-language=TypeScript
 src/**.ts linguist-language=TypeScript
 **.ts linguist-language=TypeScript
 bundle.js linguist-detectable=false
+lib/* linguist-detectable=false
