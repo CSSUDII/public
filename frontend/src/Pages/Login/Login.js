@@ -13,7 +13,7 @@ class Login extends React.Component {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name: 'Lucas', email: 'nsx1luke@gmail.com', password: '00LLiver' }),
+      body: JSON.stringify({ name: '', email: '', password: '' }),
     })
         .then(res => res.json())
         .then(res => this.setState({ apiResponse: res }));
