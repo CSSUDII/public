@@ -1,137 +1,46 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-
-import styles from "./Login.module.css";
-
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import React from "react";
 import config from "../../config";
 
-const Login = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const [message, setMessage] = useState();
-  const history = useHistory();
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { apiResponse: "" };
+  }
 
-  const onSubmit = (data, e) => {
-    setMessage({
-      data: "Login is in progress...",
-      type: "alert-warning",
-    });
+  callAPI() {
     fetch(`${config.baseUrl}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ name: 'Lucas', email: 'nsx1luke@gmail.com', password: '00LLiver' }),
     })
-      .then((res) => res.json())
-      .then(
-        (result, error) => {
-          setMessage({
-            data: error || "Logged in successfully, redirecting...",
-            type: error ? "alert-danger" : "alert-success",
-          });
-  
-          !error &&
-              localStorage.setItem("token", result.token);
-              console.log('Your TOKEN: ' + result.token)
-              history.push("/dashboard");
-  
-          !error && e.target.reset();
-        }
-      )
-  };
+        .then(res => res.json())
+        .then(res => this.setState({ apiResponse: res }));
+}
+
+componentWillMount() {
+    this.callAPI();
+}
+
+render() {
+
+  console.log(this.state.apiResponse)
+  const data = this.state.apiResponse.token;
+
+  localStorage.setItem("token", data);
 
   return (
-    <div
-      className={`${styles.container} container-fluid d-flex align-items-center justify-content-center`}
-    >
-      <div className={styles.loginFormContainer}>
-        {message && (
-          <div
-            className={`alert fade show d-flex ${message.type}`}
-            role="alert"
-          >
-            {message.data}
-            <span
-              aria-hidden="true"
-              className="ml-auto cursor-pointer"
-              onClick={() => setMessage(null)}
-            >
-              &times;
-            </span>
-          </div>
-        )}
-        <fieldset className="border p-3 rounded">
-          <legend
-            className={`${styles.loginFormLegend} border rounded p-1 text-center`}
-          >
-            Login Form
-          </legend>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-            <div className="form-group">
-              <label htmlFor="inputForEmail">Email address</label>
-              <span className="mandatory">*</span>
-              <input
-                id="inputForEmail"
-                name="email"
-                type="email"
-                className="form-control"
-                aria-describedby="Enter email address"
-                placeholder="Enter email address"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Please enter your email address",
-                  },
-                })}
-              />
-              {/**
-               * we provide validation configuration for email field above
-               * error message are displayed with code below
-               */}
-              {errors.email && (
-                <span className={`${styles.errorMessage} mandatory`}>
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="inputForPassword">Password</label>
-              <span className="mandatory">*</span>
-              <input
-                type="password"
-                name="password"
-                className="form-control"
-                id="inputForPassword"
-                placeholder="Enter password"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Please enter password",
-                  },
-                })}
-              />
-              {errors.password && (
-                <span className={`${styles.errorMessage} mandatory`}>
-                  {errors.password.message}
-                </span>
-              )}
-            </div>
-            <div className="d-flex align-items-center">
-              <button type="submit" className="btn btn-outline-primary">
-                Login
-              </button>
+    <div>
+    <pre> 
+    <code>
+    <p>Your Token: {data}</p>
+    </code>
+    </pre>
+  </div>
+  )
+}
 
-              <button className="btn btn-link ml-auto">
-                <Link to="/register">New User</Link>
-              </button>
-            </div>
-          </form>
-        </fieldset>
-      </div>
-    </div>
-  );
-};
+}
 
 export default Login;

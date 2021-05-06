@@ -9,12 +9,8 @@ const Dashboard = () => {
 
   const logout = () => {
     /* eslint-disable */
-    const toLogout = confirm("Are you sure to logout ?");
-    /* eslint-enable */
-    if (toLogout) {
       localStorage.clear();
       history.push("/login");
-    }
   };
 
   useEffect(() => {
