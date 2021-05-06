@@ -60,8 +60,6 @@ class UsersRouter {
         });
 
         router.get('/me', checkToken, (req: Request, res: Response) => {
-            console.log(req)
-
             // @ts-ignore
            return User.findById(req.user.id, { password: 0 }, (err, user) => {
                 if (err) return res.status(500).send("There was a problem finding the user.");
