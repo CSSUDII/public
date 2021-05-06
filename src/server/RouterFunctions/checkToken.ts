@@ -19,7 +19,7 @@ function checkToken (req: Request, res: Response, next: NextFunction) {
         req.user = verified;
        return next();
     } catch (err) {
-       return res.status(400).json({ auth: false, error: "Failed to authenticate token." });
+       return res.status(400).json({ auth: false, error: "Failed to authenticate token.", message: err });
     }
 }
 

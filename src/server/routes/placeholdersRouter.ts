@@ -42,12 +42,8 @@ class placeholdersRouter {
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response, next: NextFunction) => {
-            // @ts-ignore
-           return User.findById(req.userId, { password: 0 }, (err, user) => {
-                if (err) return res.status(500).send("There was a problem finding the user."); // @ts-ignore
-                if (!user) return res.status(404).send("No user was found."); // @ts-ignore
-               return res.json(res.placeholderByID); // @ts-ignore
-            });
+                // @ts-ignore
+            return res.json(res.placeholderByID);
         });
     }
 }
