@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 import config from "../../config";
 
@@ -14,6 +14,9 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      <Redirect to="/login"/>
+    }
     fetch(`${config.baseUrl}/auth/me`, {
       method: "GET",
       headers: {

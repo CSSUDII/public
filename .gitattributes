@@ -5,3 +5,4 @@ src/**.ts linguist-language=TypeScript
 bundle.js linguist-detectable=false
 lib/*.js linguist-detectable=false
 lib/**.js linguist-detectable=false
+lib/**/**.js linguist-detectable=false

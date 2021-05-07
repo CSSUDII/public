@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 import config from "../../config";
 
 class Login extends React.Component {
@@ -27,6 +28,20 @@ render() {
 
   console.log(this.state.apiResponse)
   const data = this.state.apiResponse.token;
+  if (!data) return (
+   <div>
+     <form action="http://localhost:3000/v1/auth/login" method="POST" >
+       Name: <input type="text" id="name" name="name" placeholder="Name"></input>
+       Email: <input type="text" id="email" name="email" placeholder="Email"></input>
+       Password: <input type="password" id="password" name="password" placeholder="Password"></input>
+       <input type="submit" value="Submit"></input>
+       {localStorage.setItem("name", document.getElementById("name"))}
+       {localStorage.setItem("email", document.getElementById("email"))}
+       {localStorage.setItem("password", document.getElementById("password"))}
+       {console.log('Test ' + document.getElementById('password'))}
+     </form>
+   </div>
+  )
 
   localStorage.setItem("token", data);
 
@@ -35,6 +50,7 @@ render() {
     <pre> 
     <code>
     <p>Your Token: {data}</p>
+    <Redirect to="/dashboard" />
     </code>
     </pre>
   </div>
