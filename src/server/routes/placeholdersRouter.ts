@@ -3,7 +3,7 @@
 import { Router } from "express";
 import Placeholder from "../../models/Placeholders";
 
-import User from "../../models/Users";
+// import User from "../../models/Users";
 import checkToken from "../RouterFunctions/checkToken";
 
 // Import for Types
@@ -15,6 +15,9 @@ class placeholdersRouter {
 
     public router: Router;
 
+    /**
+     * @constructor
+     */
     constructor() {
 
         this.router = router;
@@ -34,42 +37,26 @@ class placeholdersRouter {
             }
         });
 
-        this.router.get('/:name', (req: Request, res: Response) => {
-            // res.json(res.placeholder); // Will Crash App
-            // Read: https://mongoosejs.com/docs/queries.html
-           return res.json({ message: 'Not Working Yet' });
+        this.router.get('/:name', findPlaceholder, checkToken, (req: Request, res: Response) => {
+            // @ts-ignore
+           return res.json(res.placeholder);
         });
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         this.router.get('/id/:id', findPlaceholderbyID, checkToken, (req: Request, res: Response, next: NextFunction) => {
-                // @ts-ignore
+            // @ts-ignore
             return res.json(res.placeholderByID);
         });
     }
 }
 
-// Not Working Right Now
-// TODO: Fix
-// async function findPlaceholder(req, res, next) {
-//    var placeholder;
-//
-//    try {
-//        placeholder = await Placeholder.findOne({ 'name': req.params.name }, (err, output) => {
-//            if (err) return res.status(500).json({ message: err.message });
-//            console.log(output.name);
-//        });
-//        if (placeholder == null) {
-//            return res.status(404).json({ message: "Placeholder not Found" });
-//        };
-//   } catch (err) {
-//        return res.status(500).json({ message: err.message });
-//    };
-//
-//    res.placeholder = placeholder;
-//    next();
-// };
-
-
+/**
+ * Gets a placeholder by its ID
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NextFunction
+ * @returns Placeholder Data
+ */
 async function findPlaceholderbyID(req: Request, res: Response, next: NextFunction) {
     let placeholder;
 
@@ -84,6 +71,29 @@ async function findPlaceholderbyID(req: Request, res: Response, next: NextFuncti
 
     // @ts-ignore
     res.placeholderByID = placeholder;
+    next();
+}
+/**
+ * Gets a Placeholder by its name
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NextFunction
+ * @returns Placeholder Data
+ */
+async function findPlaceholder(req: Request, res: Response, next: NextFunction) {
+    let placeholder;
+
+    try {
+        placeholder = await Placeholder.findOne({ name: req.params.name });
+        if (placeholder == null) {
+            return res.status(404).json({ message: "Placeholder not Found" });
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+
+    // @ts-ignore
+    res.placeholder = placeholder;
     next();
 }
 

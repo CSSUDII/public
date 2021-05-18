@@ -17,9 +17,24 @@ import { Request, Response, NextFunction } from "express";
 const server = express();
 
 class Server {
+    /**
+     * @constructor
+     */
     constructor() {
+        /**
+         * Index Router
+         * @returns Index Router
+         */
         server.use('/', indexRouter);
+        /**
+         * Placeholder Router
+         * @returns Placeholder Router
+         */
         server.use('/v1/placeholders', placeholdersRouter);
+        /**
+         * Auth Router
+         * @returns Auth Router
+         */
         server.use('/v1/auth', UsersRouter);
 
         server.use('/', express.json());

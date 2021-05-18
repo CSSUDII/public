@@ -16,15 +16,18 @@ import rateLimit from "express-rate-limit";
 const router = Router();
 
 class UsersRouter {
+    /**
+     * @constructor
+     */
     constructor() {
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const limiter = rateLimit({
             windowMs: 15 * 60 * 1000, 
             max: 100,
             message: "You are being rate limited!"
         });
         
+        router.use(limiter);
         router.use(bodyParser.urlencoded({ extended: false }));
         router.use(bodyParser.json());
 
@@ -33,7 +36,7 @@ class UsersRouter {
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
             next();
         });
-
+        
         router.post('/register', async(req: Request, res: Response) => {
 
             const hashedPassword = bcrypt.hashSync(req.body.password, 8);

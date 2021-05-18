@@ -25,6 +25,10 @@ export class Client extends EventEmitter {
 
     public server: any
 
+    /**
+     * @constructor
+     * @param test Runs the Sever in Testing Mode
+     */
     constructor(test: boolean) {
         super();
 
@@ -70,7 +74,7 @@ export class Client extends EventEmitter {
             this.server = server.listen(this.port);
         } else {
             if (process.env.PORT) {
-                // Do Stuff
+                this.server = server.listen(process.env.PORT || this.port || 8080);
             }
 
             const port: number = this.port || 8080;

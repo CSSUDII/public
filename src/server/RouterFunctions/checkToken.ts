@@ -6,6 +6,13 @@ import { Request, Response, NextFunction } from "express";
 
 import config from "../../config/db.config";
 
+/**
+ * Check the Auth Token
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NextFunction
+ * @returns If the input token is valid
+ */
 // eslint-disable-next-line @typescript-eslint/ban-types
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function checkToken (req: Request, res: Response, next: NextFunction) {
