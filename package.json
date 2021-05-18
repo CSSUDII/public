@@ -34,7 +34,7 @@
         "inklog.js": "^1.1.1",
         "js-yaml": "^4.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.12.7",
+        "mongoose": "^5.12.9",
         "morgan": "^1.10.0",
         "regenerator-runtime": "^0.13.7"
     },
@@ -47,7 +47,7 @@
         "@babel/cli": "^7.13.16",
         "@babel/core": "^7.14.0",
         "@babel/plugin-proposal-class-properties": "^7.13.0",
-        "@babel/preset-env": "^7.14.0",
+        "@babel/preset-env": "^7.14.2",
         "@babel/preset-typescript": "^7.13.0",
         "@types/bcryptjs": "^2.4.2",
         "@types/cors": "^2.8.10",
