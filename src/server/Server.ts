@@ -11,6 +11,7 @@ import "regenerator-runtime/runtime.js";
 import indexRouter from "./routes/indexRouter";
 import placeholdersRouter from "./routes/placeholdersRouter";
 import UsersRouter from "./routes/UserRouter";
+import ImageRouter from "./routes/ImageRouter";
 
 import { Request, Response, NextFunction } from "express";
 
@@ -36,6 +37,11 @@ class Server {
          * @returns Auth Router
          */
         server.use('/v1/auth', UsersRouter);
+        /**
+         * Image Router
+         * @returns Image Router
+         */
+        server.use('/v1/image', ImageRouter);
 
         server.use('/', express.json());
 
