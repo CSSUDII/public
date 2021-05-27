@@ -11,7 +11,7 @@ import config from "../../config/db.config";
  * @param req Express Request
  * @param res Express Response
  * @param next Express NextFunction
- * @returns If the input token is valid
+ * @returns {Boolean} If the input token is valid
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

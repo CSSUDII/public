@@ -36,7 +36,7 @@ class UsersRouter {
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
             next();
         });
-        
+
         router.post('/register', async(req: Request, res: Response) => {
 
             const hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -49,7 +49,8 @@ class UsersRouter {
             User.create({
                     name: req.body.name,
                     email: req.body.email,
-                    password: hashedPassword
+                    password: hashedPassword,
+                    bypassImageLimit: false
                 },
 
                 function(err, user) {

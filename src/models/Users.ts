@@ -16,6 +16,9 @@ const UsersSchema = new Schema({
         type: String,
         required: 'No Password Provided',
         unique: false
+    },
+    bypassImageLimit: {
+        type: Boolean
     }
 });
 const Users = mongoose.model("users", UsersSchema);
