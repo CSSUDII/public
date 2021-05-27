@@ -35,7 +35,7 @@
         "jimp": "^0.16.1",
         "js-yaml": "^4.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.12.10",
+        "mongoose": "^5.12.11",
         "morgan": "^1.10.0",
         "regenerator-runtime": "^0.13.7"
     },
@@ -45,7 +45,7 @@
         }
     },
     "devDependencies": {
-        "@babel/cli": "^7.13.16",
+        "@babel/cli": "^7.14.3",
         "@babel/core": "^7.14.0",
         "@babel/plugin-proposal-class-properties": "^7.13.0",
         "@babel/preset-env": "^7.14.2",
