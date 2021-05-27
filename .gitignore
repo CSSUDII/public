@@ -13,3 +13,4 @@ frontend/.env
 frontend/build
 yarn-error.log
 @env
+lib
