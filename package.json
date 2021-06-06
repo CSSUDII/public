@@ -59,7 +59,7 @@
         "@types/morgan": "^1.9.2",
         "@types/regenerator-runtime": "^0.13.0",
         "@typescript-eslint/eslint-plugin": "^4.26.0",
-        "@typescript-eslint/parser": "^4.25.0",
+        "@typescript-eslint/parser": "^4.26.0",
         "axios": "^0.21.1",
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
