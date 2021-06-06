@@ -16,7 +16,7 @@ export class Client extends EventEmitter {
 
     public test: boolean;
     public logger: any;
-    public fs: any;
+    public fs: typeof fs;
     public default: typeof defaults;
     public config: any;
 
