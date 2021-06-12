@@ -37,7 +37,7 @@
         "jimp": "^0.16.1",
         "js-yaml": "^4.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.12.11",
+        "mongoose": "^5.12.13",
         "morgan": "^1.10.0",
         "qrcode-svg": "^1.1.0",
         "regenerator-runtime": "^0.13.7",
