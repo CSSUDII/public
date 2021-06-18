@@ -13,7 +13,7 @@
         "push": "node scripts/push.git.scripts.js",
         "cleanup": "rm -r -f lib",
         "browserify": "browserify ./lib/index.js -t babelify --outfile bundle.js",
-        "ci": "yarn install —-ignore-engines",
+        "ci": "yarn install —-ignore-engines --frozen-lockfile",
         "retire": "retire",
         "type-check": "tsc --noEmit",
         "type-check:watch": "tsc --noEmit --watch",
