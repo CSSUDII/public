@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "lib/index.js",
     "repository": "https://github.com/CSSUDII/public.git",
-    "author": "lucaslah <lucas.petrino@spycampllc.ml>",
+    "author": "lucaslah",
     "license": "MIT",
     "scripts": {
         "build": "babel src --out-dir lib --copy-files --extensions \".ts,.tsx\" --source-maps inline",
@@ -13,17 +13,17 @@
         "push": "node scripts/push.git.scripts.js",
         "cleanup": "rm -r -f lib",
         "browserify": "browserify ./lib/index.js -t babelify --outfile bundle.js",
-        "ci": "yarn install —-ignore-engines --frozen-lockfile",
+        "ci": "yarn —-ignore-engines --frozen-lockfile",
         "retire": "retire",
         "type-check": "tsc --noEmit",
         "type-check:watch": "tsc --noEmit --watch",
         "build:types": "tsc --emitDeclarationOnly",
         "build:all": "yarn build:types && yarn build",
-        "lint": "eslint . --ext .ts"
+        "lint": "eslint . --ext .ts",
+        "i": "yarn add —-ignore-engines"
     },
     "dependencies": {
         "@types/qrcode-svg": "^1.1.0",
-        "babel-jest": "27.0.1",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "convert-svg-to-png": "^0.5.0",
@@ -40,6 +40,7 @@
         "mongoose": "^5.12.11",
         "morgan": "^1.10.0",
         "qrcode-svg": "^1.1.0",
+        "react-bootstrap": "^1.6.1",
         "regenerator-runtime": "^0.13.7",
         "sharp": "^0.28.3"
     },
@@ -69,7 +70,6 @@
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
         "eslint": "^7.27.0",
-        "jest": "27.0.4",
         "retire": "^3.0.0",
         "supertest": "^6.1.3",
         "typescript": "^4.3.2"

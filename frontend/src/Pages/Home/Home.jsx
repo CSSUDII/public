@@ -11,8 +11,8 @@ class Home extends Component {
             <React.Fragment>
                 <div>
                     <center>
-                        <h1>404 Page Not Found</h1>
-                        <h1>404 Page Not Found</h1>
+                        <h1>CSSUDII API</h1>
+                        <h1>CSSUDII API</h1>
                     </center>
                 </div>
             </React.Fragment>

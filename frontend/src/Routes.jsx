@@ -7,11 +7,9 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import Login from "./Pages/Login/Login";
-// import Register from "./Pages/Register/Register";
-import Dashboard from "./Pages/Dashboard/Dashboard";
 import NotFound from "./Pages/NotFound/NotFound";
-import Profile from "./Pages/Profile/Porfile";
+import Home from "./Pages/Home/Home";
+import Nav from "./Nav/nav";
 
 const authGuard = (Component) => () => {
   return localStorage.getItem("token") ? (
@@ -20,24 +18,22 @@ const authGuard = (Component) => () => {
     <Redirect to="/login" />
   );
 };
+
+
 const Routes = (props) => (
-  <Router {...props}>
+<div>
+  <Nav/>
+<Router {...props}>
     <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/dashboard" render={authGuard(Dashboard)}></Route>
       <Route exact path="/">
-        <Redirect to="/dashboard" />
-      </Route>
-      <Route path="/profile">
-        <Profile />
+        <Home />
       </Route>
       <Route path="*">
         <NotFound />
       </Route>
     </Switch>
   </Router>
+</div>
 );
 
 export default Routes;
