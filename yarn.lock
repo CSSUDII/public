@@ -3793,10 +3793,10 @@ ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-inklog.js@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/inklog.js/-/inklog.js-1.1.2.tgz#160e46cdbdff48134ae01720566fc39a4ff002aa"
-  integrity sha512-YM2NyjEpasOrJYCSTtWdaDBCbAdu6mtGuuOXKnm3kHXPvSbseyT72S65DIUhr40uIKMxndcy1aoDhsrkn79mbQ==
+inklog.js@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inklog.js/-/inklog.js-1.2.1.tgz#85cb3e0d9615cff3456616c4e36f721acb14d65c"
+  integrity sha512-yRYrjNtS6VSGsX61pmAV5W313Jq78DKK7aksVHpayxXzC93f5t+HlZDyohUzGw7aAkOcMuta0HNwaoDe3OpN/A==
   dependencies:
     chalk "^4.1.1"
 
