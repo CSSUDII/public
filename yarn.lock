@@ -1538,10 +1538,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/qrcode-svg@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/qrcode-svg/-/qrcode-svg-1.1.0.tgz#5bfc87fa35f071a3e16ec072973e57b4f1ca7172"
-  integrity sha512-n96d8G6zph3dN9rYRJvWZ5SBwg3NrzXEYdHhCEAS6kiKfr5EzZy628ywzxtsAS//siNT2tXmG1E24tgURFRQ4Q==
+"@types/qrcode-svg@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/qrcode-svg/-/qrcode-svg-1.1.1.tgz#86c1b5d0e50d9e4eecd2d75632eb46b311a116e8"
+  integrity sha512-uTuEgFXMknpun//Jj6b1R8T8LiMi9fNpH+cnhZr4b7col2HHTMmjYfm/WOZ7nzjuGpk+oTrpHhePe1qlWtHWTA==
 
 "@types/qs@*":
   version "6.9.6"
