@@ -41,7 +41,7 @@
         "morgan": "^1.10.0",
         "qrcode-svg": "^1.1.0",
         "react-bootstrap": "^1.6.1",
-        "regenerator-runtime": "^0.13.7",
+        "regenerator-runtime": "^0.13.9",
         "sharp": "^0.28.3"
     },
     "jest": {
