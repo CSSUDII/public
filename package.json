@@ -63,7 +63,7 @@
         "@types/jsonwebtoken": "^8.5.4",
         "@types/morgan": "^1.9.3",
         "@types/regenerator-runtime": "^0.13.1",
-        "@types/sharp": "^0.28.4",
+        "@types/sharp": "^0.28.5",
         "@typescript-eslint/eslint-plugin": "^4.28.5",
         "@typescript-eslint/parser": "^4.28.5",
         "axios": "^0.21.1",
