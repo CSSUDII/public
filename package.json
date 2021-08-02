@@ -65,7 +65,7 @@
         "@types/regenerator-runtime": "^0.13.1",
         "@types/sharp": "^0.28.5",
         "@typescript-eslint/eslint-plugin": "^4.28.5",
-        "@typescript-eslint/parser": "^4.28.5",
+        "@typescript-eslint/parser": "^4.29.0",
         "axios": "^0.21.1",
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
