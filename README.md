@@ -3,7 +3,7 @@
 
 This Repo is for the CSSUDII Public API
 
-**NOTE** This API is still being worked on
+**NOTE** This API is WIP
 
 ## Links
 - Status Page: https://status.cssudii.tk
