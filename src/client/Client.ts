@@ -29,7 +29,7 @@ export class Client extends EventEmitter {
      * @constructor
      * @param test Runs the Sever in Testing Mode
      */
-    constructor(test: boolean) {
+    constructor({ test }: { test: boolean }) {
         super();
 
         this.test = test;
@@ -48,7 +48,6 @@ export class Client extends EventEmitter {
             this.logger.warn('Using Default Settings');
             this.emit('error', e);
         }
-
     }
 
    private checks() {
