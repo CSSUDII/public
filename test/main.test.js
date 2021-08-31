@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { expect } from '@jest/globals';
-import server from "../lib/server/Server";
+import server from "../dist/server/Server";
 
 import request from "supertest";
 
