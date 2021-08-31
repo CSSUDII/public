@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+const { $, cd } = require("zx");
+
+yargs(hideBin(process.argv))
+  .command('serve [port]', 'start the server', (yargs) => {
+    return yargs
+      .positional('port', {
+        describe: 'port to bind on',
+        default: 3000
+      })
+  }, (argv) => {
+    // RUN ON PORT
+    $`PORT=${argv.port} node dist/index.js`;
+  })
+  .option('debug', {
+    alias: 'd',
+    type: 'boolean',
+    description: 'Run with debug mode'
+  }).command('build', 'compile files', (yargs) => {
+    $`./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline`
+  })
+  .argv;

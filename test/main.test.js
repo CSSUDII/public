@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { expect } from '@jest/globals';
 import server from "../lib/server/Server";
 

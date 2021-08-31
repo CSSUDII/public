@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import QR from "qrcode-svg";
-import { convert } from "convert-svg-to-png";
+import QRCode from "qrcode";
+import { Canvas } from "node-canvas";
 
 const router = Router();
 
@@ -8,17 +8,15 @@ class QRGenRouter {
     constructor() {
         router.get('/:text', async (req: Request, res: Response) => {
             const text: string = req.params.text;
+            const width: number = parseInt(req.query.width as string) || 20;
+            const height: number = parseInt(req.query.height as string) || 20;
 
             if (!text) return res.json({ error: true, message: 'No Input Text' });
-
-            const img = new QR({
-                content: text
-            }).svg();
-
-            const pngInage = convert(img);
-
             res.setHeader('Content-type', 'image/png');
-            res.send(pngInage);
+
+            const qr = await QRCode.toCanvas(new Canvas(width, height, "image"), text);
+
+            qr.pngStream().pipe(res);
         });
     }
 }

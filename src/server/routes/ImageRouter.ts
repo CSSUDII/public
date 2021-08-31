@@ -9,9 +9,6 @@ const router = Router();
 
 class ImageRouter {
     constructor() {
-        router.get('/', (req: Request, res: Response) => {
-            res.json({ message: 'Hello World' });
-        });
 
         // Basic Limiter, Will be updraded soon!
         const limiter = rateLimit({

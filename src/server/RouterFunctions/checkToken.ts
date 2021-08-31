@@ -4,8 +4,6 @@ import jwt from "jsonwebtoken";
 
 import { Request, Response, NextFunction } from "express";
 
-import config from "../../config/db.config";
-
 /**
  * Check the Auth Token
  * @param req Express Request
@@ -20,8 +18,8 @@ function checkToken (req: Request, res: Response, next: NextFunction) {
     if (!token) return res.status(401).json({ auth: false, error: "No token was provided." });
 
     try {
-        const configToken: any = config.token
-        const verified = jwt.verify(token, configToken);
+        const configToken: string | undefined = process.env.TOKEN;
+        const verified = jwt.verify(token, configToken as string);
         // @ts-ignore
         req.user = verified;
        return next();

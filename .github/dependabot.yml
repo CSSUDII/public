@@ -5,9 +5,3 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-
-      # Backend
-  - package-ecosystem: "npm"
-    directory: "/backend"
-    schedule:
-      interval: "daily"

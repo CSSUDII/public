@@ -3,13 +3,10 @@ import mongoose from "mongoose";
 import logger from "inklog.js";
 import EventEmitter from "events";
 
-import config from "../config/db.config";
-
 export class dbClient extends EventEmitter {
 
     public logger: any;
-    public dbConfig: typeof config;
-    public dbURL: any;
+    public dbURL: string;
     public db: mongoose.Connection;
 
     constructor() {
@@ -17,13 +14,7 @@ export class dbClient extends EventEmitter {
 
         this.logger = logger;
 
-        try {
-            this.dbConfig = config;
-        } catch (e) {
-            throw new Error('Error loading dbConfig' + e);
-        }
-
-        this.dbURL = this.dbConfig.url;
+        this.dbURL = process.env.DB_URL as string;
 
         try {
             mongoose.connect(this.dbURL, {

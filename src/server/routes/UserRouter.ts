@@ -3,8 +3,6 @@
 import { Router, Response, Request, NextFunction } from "express";
 import User from "../../models/Users";
 
-import config from "../../config/db.config";
-
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import bodyParser from "body-parser";
@@ -54,7 +52,7 @@ class UsersRouter {
                 },
 
                 function(err, user) {
-                    const configToken: any = config.token
+                    const configToken: any = process.env.TOKEN;
                     if (err) return res.status(500).send("There was a problem registering the user.");
                     const token = jwt.sign({ id: user._id }, configToken, {
                         expiresIn: 86400
