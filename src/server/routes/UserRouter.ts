@@ -80,7 +80,7 @@ class UsersRouter {
             if (!validPassword) return res.status(400).json({ error: "Password is wrong", auth: false, token: null });
 
 
-            const configToken: any = config.token;
+            const configToken: any = process.env.TOKEN;
 
             const token = jwt.sign({
                     name: user.name,
