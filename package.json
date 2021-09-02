@@ -1,7 +1,7 @@
 {
     "name": "public",
     "version": "1.0.0",
-    "main": "lib/index.js",
+    "main": "dist/index.js",
     "repository": "https://github.com/CSSUDII/public.git",
     "author": "lucaslah",
     "license": "MIT",
