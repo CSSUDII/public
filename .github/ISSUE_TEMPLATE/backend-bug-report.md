@@ -1,11 +1,20 @@
 ---
 name: Backend Bug report
 about: Create a report to help us improve for the backend part
-title: "[BUG] [BACKEND]"
-labels: 'Bug: Backend'
+title: ''
+labels: ''
 assignees: ''
 
 ---
+
+<!---
+DO *NOT* REMOVE ANY COMMENTS IN THE ISSUE
+-->
+
+<!---
+issue.type=bug
+issue.repo=public
+-->
 
 **Describe the bug**
 A clear and concise description of what the bug is.

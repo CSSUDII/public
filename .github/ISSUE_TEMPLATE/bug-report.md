@@ -1,11 +1,20 @@
 ---
-name: Frontend Bug report
-about: Create a report to help us improve for the frontend
-title: "[BUG] [FRONTEND]"
-labels: 'Bug: Frontend'
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
 assignees: ''
 
 ---
+
+<!---
+DO *NOT* REMOVE ANY COMMENTS IN THE ISSUE
+-->
+
+<!---
+issue.type=bug
+issue.repo=public
+-->
 
 **Describe the bug**
 A clear and concise description of what the bug is.
