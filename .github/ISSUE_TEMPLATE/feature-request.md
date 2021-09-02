@@ -12,7 +12,7 @@ DO *NOT* REMOVE ANY COMMENTS IN THE ISSUE
 -->
 
 <!---
-issue.type=bug
+issue.type=feature
 issue.repo=public
 -->
 
