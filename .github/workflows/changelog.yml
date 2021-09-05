@@ -1,19 +1,41 @@
 name: Generate changelog
 on:
   release:
-    types: [created, edited]
+    type: published
 
 jobs:
-  generate-changelog:
+  comment:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: BobAnkh/auto-generate-changelog@master
-      with:
-        REPO_NAME: 'BobAnkh/auto-generate-changelog'
-        ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        PATH: '/CHANGELOG.md'
-        COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes'
-        TYPE: 'feat:Feature,fix:Bug Fixes,docs:Documentation,refactor:Refactor,perf:Performance Improvements'
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+      - name: Update version
+        id: version
+        run: |
+          echo "GITHUB_REF is a tag you set for the release"
+          echo "Your GitHub ref: ${GITHUB_REF}"
+          VERSION=`echo "${GITHUB_REF}" | cut -f 3 -d "/"`
+          echo "Preparing version ${VERSION}"
+          echo "__version__ = \"${VERSION}\"" > __version__.py
+          echo "##[set-output name=version;]$(echo ${VERSION})"
+      - uses: vemel/update-changelog@0.0.1
+        id: changelog
+        with:
+          version: ${{ steps.version.outputs.version }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          commit-message: Release ${{ steps.version.outputs.version }}
+          labels: release, bot
+          title: "Release ${{ steps.version.outputs.version }}"
+          body: |
+            # Release ${{ steps.version.outputs.version }}
+
+            Merge this PR to update your version and changelog!
+
+            ## Included Pull Requests
+
+            ${{ steps.changelog.outputs.pulls_list_md }}
