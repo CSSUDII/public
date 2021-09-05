@@ -1,6 +1,6 @@
 {
     "name": "public",
-    "version": "0.0.1",
+    "version": "0.0.1-alpha",
     "main": "dist/index.js",
     "repository": "https://github.com/CSSUDII/public.git",
     "author": "lucaslah",
