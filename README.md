@@ -16,9 +16,29 @@ This Repo is for the CSSUDII Public API
 ## API Usage
  Coming Soon!
 
-## Local Install
-- Make a @env folder in the root dir and make a .env file and fill it in based on the .example.env file
-- `yarn install` Install's Dependencies
-- `yarn type-check` Checks for type errors
-- `yarn build` Compiles the Code
-- `yarn start` Starts the API
+## Local Dev
+0. Configure Project
+```bash
+$ mkdir @env
+$ touch @env/.env # Then fill it in based on example.env
+```
+
+1. Clone Repository
+```bash
+$ git clone https://github.com/CSSUDII/public
+```
+
+2. Install Deps
+```bash
+$ make install
+```
+
+3. Build Code
+```bash
+$ make build
+```
+
+4. Start API
+```bash
+$ make start
+```

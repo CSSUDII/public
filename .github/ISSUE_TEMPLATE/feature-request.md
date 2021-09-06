@@ -1,11 +1,20 @@
 ---
-name: Backend Feature request
-about: Suggest an idea for the backend part of this project
-title: "[REQUEST] [BACKEND] "
-labels: 'Feet: Backend'
+name: Feature request
+about: Suggest an idea
+title: ''
+labels: ''
 assignees: ''
 
 ---
+
+<!---
+DO *NOT* REMOVE ANY COMMENTS IN THE ISSUE
+-->
+
+<!---
+issue.type=feature
+issue.repo=public
+-->
 
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
