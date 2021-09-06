@@ -32,7 +32,9 @@ class placeholdersRouter {
             try {
                 const placeholders = await Placeholder.find();
                return res.json(placeholders);
+               // @ts-ignore
             } catch (err) {
+                // @ts-ignore
                 res.status(500).json({ message: err.message });
             }
         });
@@ -65,6 +67,7 @@ async function findPlaceholderbyID(req: Request, res: Response, next: NextFuncti
         if (placeholder == null) {
             return res.status(404).json({ message: "Placeholder not Found" });
         }
+        // @ts-ignore
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
@@ -88,6 +91,7 @@ async function findPlaceholder(req: Request, res: Response, next: NextFunction) 
         if (placeholder == null) {
             return res.status(404).json({ message: "Placeholder not Found" });
         }
+        // @ts-ignore
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
