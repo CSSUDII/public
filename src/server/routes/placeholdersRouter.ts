@@ -4,7 +4,7 @@ import { Router } from "express";
 import Placeholder from "../../models/Placeholders";
 
 // import User from "../../models/Users";
-import checkToken from "../RouterFunctions/checkToken";
+import checkToken from "../functions/checkToken";
 
 // Import for Types
 import { Request, Response, NextFunction } from "express";

@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import logger from "inklog.js";
 import fs from "fs";
-import EventEmitter from "events"
 
 import server from "../server/Server";
-import { dbClient } from "./dbClient";
+import { DatabaseClient } from "./DatabaseClient";
 
-import { defaults } from "../Defaults";
+import { defaults } from "../defaults";
 import { Server } from "http";
 
 import "regenerator-runtime/runtime.js";
 
-export class Client extends EventEmitter {
+export class Client {
 
-    public test: boolean;
     public logger: typeof logger;
     public fs: typeof fs;
     public default: typeof defaults;
@@ -22,35 +20,26 @@ export class Client extends EventEmitter {
     public debug: boolean | undefined;
 
     public server: Server | undefined;
+    public database: DatabaseClient;
 
     /**
+     * Creates a new Client
      * @constructor
-     * @param test Runs the Sever in Testing Mode
      */
-    constructor({ test }: { test: boolean }) {
-        super();
-
-        this.test = test;
+    constructor() {
         this.logger = logger;
         this.fs = fs;
         this.default = defaults;
+        this.database = new DatabaseClient();
     }
 
-   
-
-   private checks() {
+    private checks(): void {
         try {
-            // Main Config
             this.port = process.env.PORT as any;
             this.debug = process.env.DEBUG as any;
-            /**
-             * Database Config
-             * Moved to @link dbClient.ts
-             */
-
-            this.emit('runningChecks');
         } catch (e) {
-            this.emit('error', e);
+           this.logger.error(e);
+           return;
         }
 
         if (!this.port) this.port = this.default.port;
@@ -58,19 +47,19 @@ export class Client extends EventEmitter {
 
     }
 
-   private listen() {
+    private listen(): void {
         const port: number = this.port || 8080;
         this.server = server.listen(port, "0.0.0.0", () => // Bind on 0.0.0.0, It allows you to access the API from any IP
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.logger.info(`API Live on: ${port}`) && this.emit('ready'),
+            this.logger.info(`API Live on: ${port}`),
         );
     }
 
-   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-   public load() {
+    /**
+     * Loads the client
+     * @returns {void}
+     */
+    public load(): void {
         this.checks();
-        new dbClient();
        return this.listen();
     }
 

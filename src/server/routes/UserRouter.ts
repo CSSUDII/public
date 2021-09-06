@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import bodyParser from "body-parser";
 
-import checkToken from "../RouterFunctions/checkToken";
+import checkToken from "../functions/checkToken";
 
 import rateLimit from "express-rate-limit";
 

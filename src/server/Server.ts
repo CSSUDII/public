@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 
 import helmet from "helmet";
 import hsts from "hsts";
@@ -17,23 +17,29 @@ import QRGenRouter from "./routes/QRGenRouter";
 import { Request, Response, NextFunction } from "express";
 
 const server = express();
+const routes: Array<Router> = [];
 
 class Server {
     /**
+     * Creates a new server
      * @constructor
      */
     constructor() {
-        // Routers
-        server.use('/', indexRouter);
-        server.use('/v1/placeholders', placeholdersRouter);
-        server.use('/v1/auth', UsersRouter);
-        server.use('/v1/image', ImageRouter);
-        server.use('/v1/qr', QRGenRouter);
+        this.init();
+    }
 
-        server.use('/', express.json());
+    private setupRoutes(): void {
+        routes.forEach((route) => {
+            server.use(route);
+        });
+    }
 
+    private init(): void {
         // Security Stuff
         server.use(helmet());
+
+        // JSON
+        server.use('/', express.json());
 
         // Cores
         server.use(cors());
@@ -48,15 +54,17 @@ class Server {
 
         server.use((req: Request, res: Response, next: NextFunction) => {
             if (req.secure) {
-                hstsMiddleware(req, res, next)
+                hstsMiddleware(req, res, next);
             } else {
-                next()
+                next();
             }
-        })
-
+        });
     }
 }
 
-new Server();
+const getRoutesArray = (): Router[] => {
+    return routes;
+}
 
-export default server;
+new Server();
+export = { server, getRoutesArray }
