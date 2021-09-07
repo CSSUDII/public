@@ -4,7 +4,7 @@ import path from "path";
 config({
     path: path.resolve("@env/.env")
 });
-const client: Client = new Client({ test: false });
+const client: Client = new Client();
 client.load();
 
-console.log(process.env);
+client.logger.debug(process.env);

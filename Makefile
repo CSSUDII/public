@@ -17,3 +17,7 @@ lint:
 	./node_modules/.bin/eslint . --ext .ts
 install:
 	yarn
+fix:
+	yarn prettier --write .
+lint:
+	yarn eslint . --ext .ts

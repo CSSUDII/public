@@ -2,13 +2,15 @@
 import logger from "inklog.js";
 import fs from "fs";
 
-import server from "../server/Server";
+import { server } from "../server/Server";
 import { DatabaseClient } from "./DatabaseClient";
 
 import { defaults } from "../defaults";
 import { Server } from "http";
 
 import "regenerator-runtime/runtime.js";
+
+const database = new DatabaseClient();
 
 export class Client {
 
@@ -63,4 +65,9 @@ export class Client {
        return this.listen();
     }
 
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getDatabase = () => {
+    return database.db;
 }

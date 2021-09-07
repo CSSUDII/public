@@ -8,16 +8,11 @@ import morgan from "morgan";
 
 import "regenerator-runtime/runtime.js";
 
-import indexRouter from "./routes/indexRouter";
-import placeholdersRouter from "./routes/placeholdersRouter";
-import UsersRouter from "./routes/UserRouter";
-import ImageRouter from "./routes/ImageRouter";
-import QRGenRouter from "./routes/QRGenRouter";
-
 import { Request, Response, NextFunction } from "express";
+import { loadRoutes } from "./functions/loadRoutes";
 
-const server = express();
-const routes: Array<Router> = [];
+export const server = express();
+const routes: Map<string, Router> = new Map();
 
 class Server {
     /**
@@ -28,13 +23,18 @@ class Server {
         this.init();
     }
 
-    private setupRoutes(): void {
-        routes.forEach((route) => {
-            server.use(route);
+    private async setupRoutes(): Promise<void> {
+        await loadRoutes().then(() => {
+            routes.forEach((route) => {
+                server.use(route);
+            });
         });
     }
 
     private init(): void {
+        // Setup Routers
+        this.setupRoutes();
+        
         // Security Stuff
         server.use(helmet());
 
@@ -62,9 +62,8 @@ class Server {
     }
 }
 
-const getRoutesArray = (): Router[] => {
+export const getRoutesMap= (): Map<string, Router> => {
     return routes;
 }
 
 new Server();
-export = { server, getRoutesArray }

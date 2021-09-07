@@ -4,10 +4,11 @@ import jimp from "jimp";
 import checkToken from "../functions/checkToken";
 import rateLimit from "express-rate-limit";
 
-export default class ImageRouter {
-    public router: Router;
+export const path = "";
+export const router = Router();
+
+class ImageRouter {
     constructor() {
-        this.router = Router();
 
         // Basic Limiter, Will be updraded soon!
         const limiter = rateLimit({
@@ -16,10 +17,10 @@ export default class ImageRouter {
             message: "You are being rate limited!"
         });
 
-        this.router.use(limiter);
+        router.use(limiter);
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        this.router.get('/invert', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
+        router.get('/invert', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
             const imageURL = req.query.imgUrl;
             if (!imageURL) return res.json({ error: true, message: 'No Image URL' });
 
@@ -34,15 +35,14 @@ export default class ImageRouter {
         });
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        this.router.get('/blur', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
+        router.get('/blur', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
             const imageURL = req.query.imgUrl;
             let blurAmount: unknown = req.query.blurAmount;
             if (!blurAmount) blurAmount = 4;
             if (!imageURL) return res.json({ error: true, message: 'No Image URL' });
 
-            let img;
             try {
-                img = await jimp.read(imageURL as never);
+                const img = await jimp.read(imageURL as never);
                 res.set({ 'Content-Type': 'image/png' });
                 img.blur(blurAmount as never);
                 res.status(200).send(await img.getBufferAsync('image/png'));
@@ -52,20 +52,27 @@ export default class ImageRouter {
         });
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        this.router.get('/grayscale', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
+        router.get('/grayscale', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
             const imageURL = req.query.imgUrl;
-            if (!imageURL) return res.json({ error: true, message: 'No Image URL' });
 
-            let img;
+            if (!imageURL) return res.json({ 
+                error: true,
+                message: "No Image URL"
+            });
+
             try {
-                img = await jimp.read(imageURL as never);
+                const img = await jimp.read(imageURL as string);
                 res.set({ 'Content-Type': 'image/png' });
                 img.grayscale();
-                res.status(200).send(await img.getBufferAsync('image/png'));
+                res.status(200)
+                    .send(await img.getBufferAsync('image/png'));
             } catch {
-                res.status(400).json({ error: true, message: 'Error Loading Image' });
+                res.status(400)
+                    .json({ error: true, message: 'Error Loading Image' });
             }
         });
 
     }
 }
+
+new ImageRouter();

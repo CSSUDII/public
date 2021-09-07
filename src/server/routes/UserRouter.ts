@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Router, Response, Request, NextFunction } from "express";
-import User from "../../models/Users";
+import { getDatabase } from "../../client/Client";
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -14,10 +14,13 @@ import rateLimit from "express-rate-limit";
 const router = Router();
 
 class UsersRouter {
+    private database!: typeof getDatabase;
     /**
      * @constructor
      */
     constructor() {
+
+        this.database = getDatabase();
 
         const limiter = rateLimit({
             windowMs: 15 * 60 * 1000, 
