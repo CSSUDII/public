@@ -1,1 +1,1 @@
-web: make install && make build && make start
+web: make heroku

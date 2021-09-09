@@ -23,3 +23,5 @@ fix:
 	yarn prettier --write .
 lint:
 	yarn eslint . --ext .ts
+heroku:
+	babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
