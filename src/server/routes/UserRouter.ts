@@ -72,9 +72,6 @@ class UsersRouter {
                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                    // @ts-ignore type later
                    id: req.user.id
-               },
-               select: {
-                   password: false
                }
            }).then((user) => {
                if (!user) return res.status(404).json({ error: true, message: "User not found" });
