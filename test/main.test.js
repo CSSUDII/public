@@ -4,6 +4,8 @@ import { server } from "../dist/server/Server";
 
 import request from "supertest";
 
+jest.setTimeout(100000);
+
 describe("[API] Express Server Root", () => {
     test("Status Code should return 200", done => {
         request(server)
