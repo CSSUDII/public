@@ -23,7 +23,7 @@
         "node-canvas": "^2.7.0",
         "qrcode": "^1.4.4",
         "regenerator-runtime": "^0.13.9",
-        "sharp": "^0.28.3"
+        "sharp": "^0.29.1"
     },
     "jest": {
         "transform": {
