@@ -1,27 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Router, Response, Request, NextFunction } from "express";
-import { getDatabase } from "../../client/Client";
+import express, { Router, Response, Request, NextFunction } from "express";
+import prisma from "../../client/DatabaseClient";
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import bodyParser from "body-parser";
 
 import checkToken from "../functions/checkToken";
 
 import rateLimit from "express-rate-limit";
+import { User } from "@prisma/client";
 
-const router = Router();
+export const path = "/auth";
+export const router = Router();
+
+const database = prisma;
 
 class UsersRouter {
-    private database!: typeof getDatabase;
     /**
      * @constructor
      */
     constructor() {
-
-        this.database = getDatabase();
-
         const limiter = rateLimit({
             windowMs: 15 * 60 * 1000, 
             max: 100,
@@ -29,8 +27,8 @@ class UsersRouter {
         });
         
         router.use(limiter);
-        router.use(bodyParser.urlencoded({ extended: false }));
-        router.use(bodyParser.json());
+        router.use(express.urlencoded({ extended: false }));
+        router.use(express.json());
 
         router.use((req: Request, res: Response, next: NextFunction) => {
             res.header("Access-Control-Allow-Origin", "*");
@@ -42,40 +40,56 @@ class UsersRouter {
 
             const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-            const doseEmailExist = await User.findOne({ email: req.body.email });
+            const doseEmailExist = (database).user.findUnique({
+                where: {
+                    email: req.body.email
+                }
+            });
 
-            if (doseEmailExist)
-                return res.status(400).json({ error: "Email already exists" });
-
-            User.create({
+            if (await doseEmailExist) return res.status(400).json({ error: "Email already exists" });
+            
+            await (database).user.create({
+                data: {
                     name: req.body.name,
                     email: req.body.email,
                     password: hashedPassword,
-                    bypassImageLimit: false
-                },
-
-                function(err, user) {
-                    const configToken: any = process.env.TOKEN;
-                    if (err) return res.status(500).send("There was a problem registering the user.");
-                    const token = jwt.sign({ id: user._id }, configToken, {
-                        expiresIn: 86400
-                    });
-                    res.status(200).send({ auth: true, token: token });
+                    admin: false
+                }
+            }).then((user: User) => {
+                const configToken: any = process.env.TOKEN;
+                const token = jwt.sign({ id: user.id }, configToken, {
+                    expiresIn: 86400
                 });
+                return res.status(200).send({ auth: true, token: token });
+            }).catch((error) => {
+                res.status(500).json({ auth: null, error: error, message: "There was a problem registering the user." });
+            });
         });
 
-        router.get('/me', checkToken, (req: Request, res: Response) => {
-            // @ts-ignore
-           return User.findById(req.user.id, { password: 0 }, (err, user) => {
-                if (err) return res.status(500).send("There was a problem finding the user.");
-                if (!user) return res.status(404).send("No user was found.");
-               return res.status(200).send(user);
-            });
-
+        router.get('/me', checkToken, async(req: Request, res: Response) => {
+           await (database).user.findUnique({
+               where: {
+                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                   // @ts-ignore type later
+                   id: req.user.id
+               },
+               select: {
+                   password: false
+               }
+           }).then((user) => {
+               if (!user) return res.status(404).json({ error: true, message: "User not found" });
+               return res.status(200).json({ error: false, user: user });
+           }).catch((error) => {
+               return res.status(500).json({ error: error, message: "There was a problem getting user info" });
+           })
         });
 
         router.post("/login", async(req: Request, res: Response) => {
-            const user = await User.findOne({ email: req.body.email });
+            const user = await (database).user.findUnique({
+                where: {
+                    email: req.body.email
+                }
+            });
 
             if (!user) return res.status(400).json({ error: "No user was found" });
 
@@ -87,7 +101,7 @@ class UsersRouter {
 
             const token = jwt.sign({
                     name: user.name,
-                    id: user._id,
+                    id: user.id,
                 },
                 configToken
             );
@@ -99,11 +113,10 @@ class UsersRouter {
         });
 
         router.get('/logout', (req, res) => {
-           return res.status(200).send({ auth: false, token: null });
+            res.status(200).send({ auth: false, token: null });
+            return res.destroy();
         });
     }
 }
 
 new UsersRouter;
-
-export default router;

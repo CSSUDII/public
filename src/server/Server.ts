@@ -9,7 +9,12 @@ import morgan from "morgan";
 import "regenerator-runtime/runtime.js";
 
 import { Request, Response, NextFunction } from "express";
-import { loadRoutes } from "./functions/loadRoutes";
+// import { loadRoutes } from "./functions/loadRoutes";
+
+import * as IndexRouter from "./routes/indexRouter";
+import * as QRGenRouter from "./routes/QRGenRouter";
+import * as UserRouter from "./routes/UserRouter";
+import * as ImageRouter from "./routes/ImageRouter"; 
 
 export const server = express();
 const routes: Map<string, Router> = new Map();
@@ -24,11 +29,10 @@ class Server {
     }
 
     private async setupRoutes(): Promise<void> {
-        await loadRoutes().then(() => {
-            routes.forEach((route) => {
-                server.use(route);
-            });
-        });
+        server.use(IndexRouter.path, IndexRouter.router);
+        server.use(QRGenRouter.path, QRGenRouter.router);
+        server.use(UserRouter.path, UserRouter.router);
+        server.use(ImageRouter.path, ImageRouter.router);
     }
 
     private init(): void {

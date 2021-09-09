@@ -2,6 +2,8 @@
 
 .PHONY: test
 
+all: install build
+
 build:
 	./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
 start:

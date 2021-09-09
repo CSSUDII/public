@@ -3,14 +3,13 @@ import logger from "inklog.js";
 import fs from "fs";
 
 import { server } from "../server/Server";
-import { DatabaseClient } from "./DatabaseClient";
+import prisma from "./DatabaseClient";
 
 import { defaults } from "../defaults";
 import { Server } from "http";
 
 import "regenerator-runtime/runtime.js";
-
-const database = new DatabaseClient();
+import { Prisma, PrismaClient } from "@prisma/client";
 
 export class Client {
 
@@ -22,7 +21,6 @@ export class Client {
     public debug: boolean | undefined;
 
     public server: Server | undefined;
-    public database: DatabaseClient;
 
     /**
      * Creates a new Client
@@ -32,7 +30,12 @@ export class Client {
         this.logger = logger;
         this.fs = fs;
         this.default = defaults;
-        this.database = new DatabaseClient();
+    }
+
+    private async setupDatabase(): Promise<void> {
+        await prisma.$connect().then(() => {
+            this.logger.info("[DB] Connected to database");
+        })
     }
 
     private checks(): void {
@@ -61,13 +64,8 @@ export class Client {
      * @returns {void}
      */
     public load(): void {
+        this.setupDatabase();
         this.checks();
        return this.listen();
     }
-
-}
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getDatabase = () => {
-    return database.db;
 }

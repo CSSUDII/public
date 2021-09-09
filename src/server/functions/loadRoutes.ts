@@ -1,16 +1,20 @@
-import { Router } from "express";
 import { readdirSync } from "fs";
 import { getRoutesMap } from "../Server";
+import path from "path";
 
-interface CustomRouter {
-    path: string;
-    router: Router;
-}
-
+/**
+ * Loads all the routes
+ * @deprecated dose not work yet
+ * @exports loadRoutes
+ * @async
+ */
 export const loadRoutes = async(): Promise<void> => {
-    const routesFiles = readdirSync(`../routes`);
+    const routesFiles = readdirSync(path.resolve("src/server/routes"));
     for (const file of routesFiles) {
-        const route: CustomRouter = import(`../routes/${file}`) as never;
-        getRoutesMap().set(route.path, route.router);
+        await import(`../routes/${file}`).then((res) => {
+            getRoutesMap().set(res.path, res.router);
+        }).catch((error) => {
+            // Log Error
+        });
     }
 }
