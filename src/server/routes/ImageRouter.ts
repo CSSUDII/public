@@ -4,7 +4,7 @@ import jimp from "jimp";
 import checkToken from "../functions/checkToken";
 import rateLimit from "express-rate-limit";
 
-export const path = "/image";
+export const path = "/v1/image";
 export const router = Router();
 
 class ImageRouter {

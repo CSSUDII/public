@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import { Canvas } from "node-canvas";
 
 export const router = Router();
-export const path = "/qr";
+export const path = "/v1/qr";
 
 class QRGenRouter {
     constructor() {

@@ -10,7 +10,7 @@ import checkToken from "../functions/checkToken";
 import rateLimit from "express-rate-limit";
 import { User } from "@prisma/client";
 
-export const path = "/auth";
+export const path = "/v1/auth";
 export const router = Router();
 
 const database = prisma;
