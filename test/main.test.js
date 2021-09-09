@@ -24,12 +24,4 @@ describe("[API] Image Router", () => {
             done();
         });
     });
-    test("Body", done => {
-        request(server)
-        .get("/v1/image")
-        .then(response => {
-            expect(response.body).toBe({ error: null, ping: true, result: null, message: "Image Router, Frontend coming soon!" });
-            done();
-        });
-    });
 });
