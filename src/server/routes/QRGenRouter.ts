@@ -1,17 +1,19 @@
 import { Router, Request, Response } from "express";
 import QRCode from "qrcode";
 import { Canvas } from "node-canvas";
+import checkToken from "../functions/checkToken";
 
-const router = Router();
+export const router = Router();
+export const path = "/v1/qr";
 
 class QRGenRouter {
     constructor() {
-        router.get('/:text', async (req: Request, res: Response) => {
+        router.get('/:text', checkToken,  async (req: Request, res: Response) => {
             const text: string = req.params.text;
             const width: number = parseInt(req.query.width as string) || 20;
             const height: number = parseInt(req.query.height as string) || 20;
 
-            if (!text) return res.json({ error: true, message: 'No Input Text' });
+            if (!text) return res.json({ error: true, message: "No Input Text" });
             res.setHeader('Content-type', 'image/png');
 
             const qr = await QRCode.toCanvas(new Canvas(width, height, "image"), text);
@@ -22,5 +24,3 @@ class QRGenRouter {
 }
 
 new QRGenRouter();
-
-export default router;

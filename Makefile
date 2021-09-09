@@ -2,6 +2,8 @@
 
 .PHONY: test
 
+all: install build
+
 build:
 	./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
 start:
@@ -17,3 +19,7 @@ lint:
 	./node_modules/.bin/eslint . --ext .ts
 install:
 	yarn
+fix:
+	yarn prettier --write .
+lint:
+	yarn eslint . --ext .ts

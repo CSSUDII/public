@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 
 import helmet from "helmet";
 import hsts from "hsts";
@@ -8,32 +8,42 @@ import morgan from "morgan";
 
 import "regenerator-runtime/runtime.js";
 
-import indexRouter from "./routes/indexRouter";
-import placeholdersRouter from "./routes/placeholdersRouter";
-import UsersRouter from "./routes/UserRouter";
-import ImageRouter from "./routes/ImageRouter";
-import QRGenRouter from "./routes/QRGenRouter";
-
 import { Request, Response, NextFunction } from "express";
+// import { loadRoutes } from "./functions/loadRoutes";
 
-const server = express();
+import * as IndexRouter from "./routes/indexRouter";
+import * as QRGenRouter from "./routes/QRGenRouter";
+import * as UserRouter from "./routes/UserRouter";
+import * as ImageRouter from "./routes/ImageRouter"; 
+
+export const server = express();
+const routes: Map<string, Router> = new Map();
 
 class Server {
     /**
+     * Creates a new server
      * @constructor
      */
     constructor() {
-        // Routers
-        server.use('/', indexRouter);
-        server.use('/v1/placeholders', placeholdersRouter);
-        server.use('/v1/auth', UsersRouter);
-        server.use('/v1/image', ImageRouter);
-        server.use('/v1/qr', QRGenRouter);
+        this.init();
+    }
 
-        server.use('/', express.json());
+    private async setupRoutes(): Promise<void> {
+        server.use(IndexRouter.path, IndexRouter.router);
+        server.use(QRGenRouter.path, QRGenRouter.router);
+        server.use(UserRouter.path, UserRouter.router);
+        server.use(ImageRouter.path, ImageRouter.router);
+    }
 
+    private init(): void {
+        // Setup Routers
+        this.setupRoutes();
+        
         // Security Stuff
         server.use(helmet());
+
+        // JSON
+        server.use('/', express.json());
 
         // Cores
         server.use(cors());
@@ -48,15 +58,16 @@ class Server {
 
         server.use((req: Request, res: Response, next: NextFunction) => {
             if (req.secure) {
-                hstsMiddleware(req, res, next)
+                hstsMiddleware(req, res, next);
             } else {
-                next()
+                next();
             }
-        })
-
+        });
     }
 }
 
-new Server();
+export const getRoutesMap= (): Map<string, Router> => {
+    return routes;
+}
 
-export default server;
+new Server();
