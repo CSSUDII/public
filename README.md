@@ -3,7 +3,7 @@
 
 This Repo is for the CSSUDII Public API
 
-**NOTE** This API is WIP
+**NOTE** This API is WIP, expect bugs
 
 ## Links
 - Status Page: https://status.cssudii.tk
@@ -21,6 +21,7 @@ This Repo is for the CSSUDII Public API
 ```bash
 $ mkdir @env
 $ touch @env/.env # Then fill it in based on example.env
+$ touch .env # fill in database URL
 ```
 
 1. Clone Repository
