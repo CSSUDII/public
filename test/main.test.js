@@ -3,7 +3,6 @@ import { expect } from '@jest/globals';
 import { server } from "../dist/server/Server";
 
 import request from "supertest";
-import { describe } from 'yargs';
 
 describe("[API] Express Server Root", () => {
     test("Status Code should return 200", done => {
