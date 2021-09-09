@@ -13,7 +13,7 @@ export const loadRoutes = async(): Promise<void> => {
     for (const file of routesFiles) {
         await import(`../routes/${file}`).then((res) => {
             getRoutesMap().set(res.path, res.router);
-        }).catch((error) => {
+        }).catch(() => {
             // Log Error
         });
     }

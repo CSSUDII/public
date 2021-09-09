@@ -9,7 +9,6 @@ import { defaults } from "../defaults";
 import { Server } from "http";
 
 import "regenerator-runtime/runtime.js";
-import { Prisma, PrismaClient } from "@prisma/client";
 
 export class Client {
 
