@@ -13,7 +13,7 @@ This Repo is for the CSSUDII Public API
 - Coming Soon!
 
 ## API Docs
-- Coming Soon!
+https://cssudii.github.io/api-docs
 
 ## Quick Start: Self Hosting
 - Note: Windows is not supported yet
