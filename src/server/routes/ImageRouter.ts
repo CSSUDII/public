@@ -19,6 +19,11 @@ class ImageRouter {
 
         router.use(limiter);
 
+        router.get("/", async(_req: Request, res: Response) => {
+            res.header("ping", "true");
+            return res.status(200).json({ error: null, ping: true, result: null, message: "Image Router, Frontend coming soon!" });
+        });
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         router.get('/invert', checkToken, async (req: Request, res: Response, _next: NextFunction) => {
             const imageURL = req.query.imgUrl;
