@@ -23,7 +23,7 @@ https://cssudii.github.io/api-docs
 $ git clone https://github.com/CSSUDII/public.git
 ```
 
-1. Configure Project
+2. Configure Project
 ```bash
 $ mkdir @env
 $ touch @env/.env # Then fill it in based on example.env
