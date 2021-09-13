@@ -18,6 +18,11 @@ https://cssudii.github.io/api-docs
 ## Quick Start: Self Hosting
 - Note: Windows is not supported yet
 
+1. Clone Repository
+```bash
+$ git clone https://github.com/CSSUDII/public.git
+```
+
 1. Configure Project
 ```bash
 $ mkdir @env
@@ -25,11 +30,6 @@ $ touch @env/.env # Then fill it in based on example.env
 $ touch .env # Then add: `DATABASE_URL="your mongodb url here"`
 # or to do that automatically
 $ ./configure
-```
-
-2. Clone Repository
-```bash
-$ git clone https://github.com/CSSUDII/public.git
 ```
 
 3. Install Dependencies
