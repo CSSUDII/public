@@ -6,7 +6,7 @@ This Repo is for the CSSUDII Public API
 **NOTE** This API is WIP, expect bugs
 
 ## Public Version
-- Main URL: N/A (Currently Offline)
+- Main URL: https://api.cssudii.tk (Recommended)
 - Heroku: https://cssudii-api.herokuapp.com (Free Dyno)
 
 ## Status
