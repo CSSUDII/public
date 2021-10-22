@@ -54,7 +54,7 @@
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
         "eslint": "^7.32.0",
-        "jest": "^27.3.0",
+        "jest": "^27.3.1",
         "prettier": "2.4.1",
         "prisma": "^3.3.0",
         "retire": "^3.0.3",
