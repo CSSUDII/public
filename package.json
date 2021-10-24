@@ -48,7 +48,7 @@
         "@types/qrcode": "^1.4.1",
         "@types/regenerator-runtime": "^0.13.1",
         "@types/supertest": "^2.0.11",
-        "@typescript-eslint/eslint-plugin": "^4.32.0",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
         "@typescript-eslint/parser": "^4.33.0",
         "axios": "^0.23.0",
         "babelify": "^10.0.0",
