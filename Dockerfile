@@ -5,7 +5,7 @@ COPY package*.json ./
 COPY yarn.lock ./
 
 RUN npm install
-RUN make build
+RUN ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
 
 COPY . .
 
