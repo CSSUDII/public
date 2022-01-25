@@ -4,7 +4,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY yarn.lock ./
 
-RUN npm install
+RUN yarn
+RUN yarn prisma generate
 
 COPY . .
 # Build
