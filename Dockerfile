@@ -5,9 +5,10 @@ COPY package*.json ./
 COPY yarn.lock ./
 
 RUN npm install
-RUN ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
 
 COPY . .
+# Build
+RUN ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
 
 EXPOSE 8080
 CMD [ "make", "start" ]
