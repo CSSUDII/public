@@ -46,3 +46,15 @@ $ make build
 ```bash
 $ make start
 ```
+
+## Docker
+
+1. Build Image
+```bash
+$ docker build . -t cssudii-api
+```
+
+2. Run
+```bash
+$ docker run -p 8081:8080 -d cssudii-api
+```
