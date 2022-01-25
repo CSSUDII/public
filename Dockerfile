@@ -5,9 +5,10 @@ COPY package*.json ./
 COPY yarn.lock ./
 
 RUN yarn
+COPY . .
+
 RUN yarn prisma generate
 
-COPY . .
 # Build
 RUN ./node_modules/.bin/babel src --out-dir dist --copy-files --extensions .ts,.tsx --source-maps inline
 
