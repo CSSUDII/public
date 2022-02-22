@@ -2673,11 +2673,6 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-colors@^1.1.2:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
-  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
-
 combine-source-map@^0.8.0, combine-source-map@~0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/combine-source-map/-/combine-source-map-0.8.0.tgz#a58d0df042c186fcf822a8e8015f5450d2d79a8b"
@@ -5523,10 +5518,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.0.tgz#a6370e2d4594e093270419d9cc47f7670488f893"
-  integrity sha512-FM/zAKgWTxj40rH03VxzIPdXmj39SwSjwG0heUcNFwI+EMZJnY93yAiKXM3dObIKAM5TA88werc8T/EwhB45eg==
+prettier@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
+  integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
 
 pretty-format@^27.4.2:
   version "27.4.2"
@@ -5870,12 +5865,12 @@ resolve@^1.1.4, resolve@^1.10.0, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.20
     is-core-module "^2.2.0"
     path-parse "^1.0.6"
 
-retire@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/retire/-/retire-3.0.3.tgz#9d7e05bf047ba8281e6e6367102a644f0c219583"
-  integrity sha512-pkhhSncOADJCwR7nh5DMX/WHVyVcb0FoZFKl4CXXxjqS3HUNPJ/j5M6BaPAU3FAVIssmxQOFEHh9MQiSrrMy7Q==
+retire@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/retire/-/retire-3.0.6.tgz#8cb62c1dfb958b24996c776a4d51dbee21b5925b"
+  integrity sha512-AUs7qLU7Etp1bJS3/+XMp8CziKgjDIavIDpHOlWNl2ehIXTGVXPjQQmLli9nPgVwBs2foLp98HFWLCJ7/Ucf5A==
   dependencies:
-    colors "^1.1.2"
+    ansi-colors "^4.1.1"
     commander "2.5.x"
     https-proxy-agent "^5.0.0"
     read-installed "^4.0.3"
