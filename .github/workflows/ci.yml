@@ -19,6 +19,8 @@ jobs:
       run: yarn --immutable
     - name: Build
       run: yarn gulp build:compile-ts
+    - name: Prisma Generate
+      run: DATABASE_URL=${{ secrets.DATABASE_URL }} yarn database:generate
     - name: Type Check
       run: yarn gulp build:type-check
     - name: Test
