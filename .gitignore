@@ -7,4 +7,5 @@
 !.yarn/sdks
 !.yarn/versions
 
-dist/**
+dist
+coverage
