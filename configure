@@ -1,7 +1,0 @@
-#! /bin/bash
-
-echo "configuring project...."
-mkdir @env
-touch @env/.env
-touch .env
-echo "DATABASE_URL=" > .env 

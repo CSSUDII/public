@@ -1,16 +1,12 @@
-import { config } from "dotenv";
-import path from "path";
-import { Client } from "./client/Client";
-import prisma from "./client/DatabaseClient";
+import "reflect-metadata";
+import "regenerator-runtime/runtime.js";
 
-config({
-    path: path.resolve("@env/.env")
-});
+import { Client } from "./client/Client";
 
 const client: Client = new Client();
-client.load();
+client.initialize();
 
-process.on("SIGTERM", async() => {
-    prisma.$disconnect();
+process.on("SIGTERM", async () => {
+    client.prisma.$disconnect();
     client.logger.info("[DB] Disconnected from database");
 });

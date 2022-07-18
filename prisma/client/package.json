@@ -1,0 +1,14 @@
+{
+    "name": "@cssudii/prisma",
+    "private": true,
+    "version": "0.0.0",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "pnpify prisma generate --schema ../schema.prisma",
+        "prisma": "pnpify prisma"
+    },
+    "devDependencies": {
+        "@prisma/client": "^2.26.0"
+    }
+}

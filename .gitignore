@@ -1,17 +1,10 @@
-node_modules
-# Keep environment variables out of version control
-.env
-.DS_Store
-*.DS_Store
-.DS_STORE
-*.DS_STORE
-local
-config/db.config.yml
-*node_modules
 *.env
-frontend/node_modules
-frontend/.env
-frontend/build
-yarn-error.log
-@env
-dist
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+dist/**

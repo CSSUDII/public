@@ -1,1 +1,2 @@
-lib/serve linguist-language=Shell
+/.yarn/releases/** binary
+/.yarn/plugins/** binary

@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  push:
+    branches: [stable, beta, canary]
+
+jobs:
+  release:
+    name: Releases
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 17.x
+    - name: Install dependencies
+      run: yarn --immutable
+    - name: Build
+      run: yarn gulp build:compile-ts
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_USERNAME: lucaslah
+        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      run: yarn semantic-release

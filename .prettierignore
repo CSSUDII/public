@@ -1,8 +1,6 @@
-node_modules
-lib
-config
-.github
-.staqlab
-local
-bundle.js
-dist
+dist/**
+.yarn/**
+.github/**
+.devcontainer/**
+.vscode/**
+prisma/**

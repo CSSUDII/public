@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  test:
+    name: Test & Type-check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 17.x
+    - name: Install dependencies
+      run: yarn --immutable
+    - name: Build
+      run: yarn gulp build:compile-ts
+    - name: Type Check
+      run: yarn gulp build:type-check
+    - name: Test
+      run: yarn test

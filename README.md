@@ -1,60 +1,13 @@
-# CSSUDII API
-[![Node.js CI](https://github.com/CSSUDII/public/actions/workflows/node-tests.yml/badge.svg)](https://github.com/CSSUDII/public/actions/workflows/node-tests.yml) ![code score badge](https://www.code-inspector.com/project/21868/score/svg) ![Website](https://badges.cssudii.tk/generate/API/status/api_cssudii_tk) ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m787949650-67589e69fbffafdf836b1b85) ![example](https://img.shields.io/badge/dynamic/json?label=Example%20API%20Response&query=example&url=https%3A%2F%2Fcssudii.loophole.site%2Fv1%2Fplaceholders) ![license](https://img.shields.io/github/license/CSSUDII/public) ![David](https://david-dm.org/CSSUDII/public.svg) ![GitHub last commit](https://img.shields.io/github/last-commit/CSSUDII/public) [![Heroku App Status](http://heroku-shields.herokuapp.com/cssudii-api)](https://cssudii-api.herokuapp.com)
+# Public API
 
-This Repo is for the CSSUDII Public API
+![Website](https://badges.cssudii.tk/generate/API/status/api_cssudii_tk) ![license](https://img.shields.io/github/license/CSSUDII/public)
 
-**NOTE** This API is WIP, expect bugs
+Version: `public@1.0.0-next`
 
 ## Public Version
-- Main URL: https://api.cssudii.tk (Recommended)
-- Heroku: https://cssudii-api.herokuapp.com (Free Dyno)
 
-## Status
-- Coming Soon!
+-   Main URL: https://api.cssudii.tk (Recommended)
 
-## API Docs
-https://cssudii.github.io/api-docs
+## Documentation
 
-## Quick Start: Self Hosting
-- Note: Windows is not supported yet
-
-1. Clone Repository
-```bash
-$ git clone https://github.com/CSSUDII/public.git
-```
-
-2. Configure Project
-```bash
-$ mkdir @env
-$ touch @env/.env # Then fill it in based on example.env
-$ touch .env # Then add: `DATABASE_URL="your mongodb url here"`
-# or to do that automatically
-$ ./configure
-```
-
-3. Install Dependencies
-```bash
-$ make install
-```
-
-4. Build Code
-```bash
-$ make build
-```
-
-5. Start API
-```bash
-$ make start
-```
-
-## Docker
-
-1. Build Image
-```bash
-$ docker build . -t cssudii-api
-```
-
-2. Run
-```bash
-$ docker run -p 8081:8080 -d cssudii-api
-```
+TBA

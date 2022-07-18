@@ -1,16 +1,15 @@
 {
     "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "declaration": true,
-      "strict": true, 
-      "outDir": "lib",
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true
+        "target": "ES2015",
+        "module": "CommonJS",
+        //"noEmit": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "moduleResolution": "Node",
+        "outDir": "dist",
+        "skipLibCheck": true
     },
-    "ts-node": {
-      "compilerOptions": {
-        "module": "commonjs"
-      }
-    }
-  }
+    "include": ["src/**/*.ts"]
+}
