@@ -6,6 +6,8 @@ import { Client } from "../dist/client/Client";
 
 let client: Client;
 
+jest.setTimeout(50000);
+
 beforeAll(() => {
     process.env.TEST_ENV = "Y";
 
