@@ -1,11 +1,10 @@
-name: CI
+name: Node CI
 
 on:
   push:
 
 jobs:
-  test:
-    name: Test & Type-check
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,13 +14,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 17.x
-    - name: Install dependencies
-      run: yarn --immutable
-    - name: Build
-      run: yarn gulp build:compile-ts
-    - name: Prisma Generate
-      run: DATABASE_URL=${{ secrets.DATABASE_URL }} yarn database:generate
-    - name: Type Check
-      run: yarn gulp build:type-check
-    - name: Test
-      run: TEST_ENV=Y yarn test
+    - run: yarn --immutable
+    - run: yarn tsc # TODO: When babel is working change to yarn gulp build:compile-ts
+    - run: DATABASE_URL=${{ secrets.DATABASE_URL }} yarn database:generate
+    #- name: Type Check
+    #  run: yarn gulp build:type-check
+    - run: TEST_ENV=Y yarn test
