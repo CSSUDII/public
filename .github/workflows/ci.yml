@@ -15,8 +15,8 @@ jobs:
       with:
         node-version: 17.x
     - run: yarn --immutable
-    - run: yarn tsc # TODO: When babel is working change to yarn gulp build:compile-ts
     - run: DATABASE_URL=${{ secrets.DATABASE_URL }} yarn database:generate
+    - run: yarn tsc # TODO: When babel is working change to yarn gulp build:compile-ts
     #- name: Type Check
     #  run: yarn gulp build:type-check
     - run: TEST_ENV=Y yarn test
