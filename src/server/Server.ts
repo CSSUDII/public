@@ -15,6 +15,7 @@ import { UserRouter } from "./routes/UserRouter";
 import { IndexRouter } from "./routes/IndexRouter";
 import path from "path";
 import { QRGenRouter } from "./routes/QRGenRouter";
+import { ImageRouter } from "./routes/ImageRouter";
 
 export class Server {
     private client: Client;
@@ -31,7 +32,12 @@ export class Server {
     }
 
     private async setupRoutes() {
-        const routerControllers = [UserRouter, IndexRouter, QRGenRouter];
+        const routerControllers = [
+            UserRouter,
+            IndexRouter,
+            QRGenRouter,
+            ImageRouter,
+        ];
 
         const info: Array<{ api: string; file: string }> = [];
 

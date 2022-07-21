@@ -44,6 +44,67 @@ describe("GET /v1/qrcode", () => {
     });
 });
 
+describe("GET /v1/image", () => {
+    test("should respond with a 200 status code", async () => {
+        const res = await request(client.server.app).get("/v1/image");
+        expect(res.statusCode).toBe(200);
+    });
+});
+
+describe("GET /v1/image/invert", () => {
+    const testImageUrl =
+        "https://raw.githubusercontent.com/CSSUDII/public/next/assets/png/CSSUDII.png";
+    test("should respond with a 200 status code", async () => {
+        const res = await request(client.server.app)
+            .get("/v1/image/invert")
+            .query({ url: testImageUrl });
+        expect(res.statusCode).toBe(200);
+    });
+
+    test("expect content-type header to be image/png", async () => {
+        const res = await request(client.server.app)
+            .get("/v1/image/invert")
+            .query({ url: testImageUrl });
+        expect(res.header["content-type"]).toContain("image/png");
+    });
+});
+
+describe("GET /v1/image/blur", () => {
+    const testImageUrl =
+        "https://raw.githubusercontent.com/CSSUDII/public/next/assets/png/CSSUDII.png";
+    test("should respond with a 200 status code", async () => {
+        const res = await request(client.server.app)
+            .get("/v1/image/blur")
+            .query({ url: testImageUrl });
+        expect(res.statusCode).toBe(200);
+    });
+
+    test("expect content-type header to be image/png", async () => {
+        const res = await request(client.server.app)
+            .get("/v1/image/blur")
+            .query({ url: testImageUrl });
+        expect(res.header["content-type"]).toContain("image/png");
+    });
+});
+
+describe("GET /v1/image/grayscale", () => {
+    const testImageUrl =
+        "https://raw.githubusercontent.com/CSSUDII/public/next/assets/png/CSSUDII.png";
+    test("should respond with a 200 status code", async () => {
+        const res = await request(client.server.app)
+            .get("/v1/image/grayscale")
+            .query({ url: testImageUrl });
+        expect(res.statusCode).toBe(200);
+    });
+
+    test("expect content-type header to be image/png", async () => {
+        const res = await request(client.server.app)
+            .get("/v1/image/grayscale")
+            .query({ url: testImageUrl });
+        expect(res.header["content-type"]).toContain("image/png");
+    });
+});
+
 afterAll(() => {
     if (typeof client.prisma !== "undefined") {
         client.prisma.$disconnect();
