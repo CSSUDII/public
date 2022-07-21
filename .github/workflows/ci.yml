@@ -24,4 +24,4 @@ jobs:
     - name: Type Check
       run: yarn gulp build:type-check
     - name: Test
-      run: yarn test
+      run: TEST_ENV=Y yarn test

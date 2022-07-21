@@ -13,18 +13,27 @@ import { Request, Response, NextFunction } from "express";
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function checkToken (req: Request, res: Response, next: NextFunction) {
+function checkToken(req: Request, res: Response, next: NextFunction) {
     const token = req.header("x-access-token");
-    if (!token) return res.status(401).json({ auth: false, error: "No token was provided." });
+    if (!token)
+        return res
+            .status(401)
+            .json({ auth: false, error: "No token was provided." });
 
     try {
         const configToken: string | undefined = process.env.TOKEN;
         const verified = jwt.verify(token, configToken as string);
         // @ts-ignore
         req.user = verified;
-       return next();
+        return next();
     } catch (err) {
-       return res.status(400).json({ auth: false, error: "Failed to authenticate token.", message: err });
+        return res
+            .status(400)
+            .json({
+                auth: false,
+                error: "Failed to authenticate token.",
+                message: err,
+            });
     }
 }
 

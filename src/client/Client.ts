@@ -12,12 +12,15 @@ export class Client {
     public server: Server;
     public prisma: PrismaClient;
 
+    private http: http.Server;
+
     /**
      * Creates a new Client
      * @constructor
      */
-    constructor() {
-        this.logger = this.logger = createLogger({
+    constructor({ slient }: { slient?: boolean }) {
+        this.logger = createLogger({
+            silent: slient,
             level: "info",
             format: format.combine(
                 format.timestamp({
@@ -33,33 +36,40 @@ export class Client {
             defaultMeta: {
                 service: "cssudii-api",
             },
+            exitOnError: false,
             transports: [new transports.Console()],
         });
+
         this.server = new Server(this);
         this.prisma = new PrismaClient();
     }
 
     private async initDatabase(): Promise<void> {
         await this.prisma.$connect().then(() => {
-            this.logger.info("[DB] Connected to database");
+            this.logger.info("Connected to database");
         });
     }
 
     private listen(): void {
-        http.createServer(this.server.app).listen(
-            this.config.port,
-            this.config.host,
-            () => {
+        this.http = http
+            .createServer(this.server.app)
+            .listen(this.config.port, this.config.host, () => {
                 this.logger.info(
                     `API running on: ${this.config.host}:${this.config.port}`
                 );
-            }
-        );
+            });
     }
 
     public async initialize(): Promise<Client> {
         await this.initDatabase();
-        this.listen();
+        if (process.env["TEST_ENV"] !== "Y") {
+            this.listen();
+        }
         return this;
+    }
+
+    public async distroy() {
+        this.prisma.$disconnect();
+        this.http.close();
     }
 }

@@ -9,35 +9,38 @@ import morgan from "morgan";
 import { Request, Response, NextFunction } from "express";
 
 import { MetadataKeys } from "../express/metadata";
-import { IRouter } from "../express/handlers";
+import { IRouter, IUse } from "../express/handlers";
 import { Client } from "../client/Client";
-import { BaseRouter } from "../express/BaseRouter";
 import { UserRouter } from "./routes/UserRouter";
 import { IndexRouter } from "./routes/IndexRouter";
+import path from "path";
+import { QRGenRouter } from "./routes/QRGenRouter";
 
 export class Server {
     private client: Client;
-    public info: Promise<{ api: string; handler: string }[]>;
     public app: Application;
+
     /**
      * Creates a new server
      * @constructor
      */
     constructor(client: Client) {
-        this.client = client;
         this.app = express();
+        this.client = client;
         this.init();
     }
 
     private async setupRoutes() {
-        const routerControllers: BaseRouter[] = [
-            new UserRouter(this.client),
-            new IndexRouter(this.client),
-        ];
+        const routerControllers = [UserRouter, IndexRouter, QRGenRouter];
 
-        const info: Array<{ api: string; handler: string }> = [];
+        const info: Array<{ api: string; file: string }> = [];
 
         routerControllers.forEach((baseRouter) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const baseRouterInstance: any = new baseRouter(this.client);
+
             const basePath: string = Reflect.getMetadata(
                 MetadataKeys.BASE_PATH,
                 baseRouter
@@ -47,52 +50,59 @@ export class Server {
                 baseRouter
             );
 
-            const uses = Reflect.getMetadata(
+            const uses: IUse[] = Reflect.getMetadata(
                 MetadataKeys.SERVER_USE,
                 baseRouter
             );
 
             const expressRouter = Router();
 
-            console.log(routers);
-            console.log(basePath);
-            console.log(uses);
+            if (uses) {
+                if (uses.length) {
+                    for (let i = 0; i < uses.length; i++) {
+                        expressRouter.use(uses[i].object);
+                    }
+                }
+            }
 
             for (const r of routers) {
                 expressRouter[r.method](
                     r.path,
-                    baseRouter[String(r.handlerName)].bind(baseRouter)
+                    baseRouterInstance[String(r.handlerName)].bind(
+                        baseRouterInstance
+                    )
                 );
 
                 info.push({
                     api: `${r.method.toLocaleUpperCase()} ${basePath + r.path}`,
-                    handler: `N/A`,
+                    file: `${baseRouter.name}`,
                 });
             }
 
-            uses.forEach((o) => {
-                expressRouter.use(o);
-            });
-
             this.app.use(basePath, expressRouter);
-            console.table(info);
         });
-
-        return info;
     }
 
     private init(): void {
         // Setup Routers
-        this.info = this.setupRoutes();
+        this.setupRoutes();
 
         // Security Stuff
         this.app.use(helmet());
 
-        // JSON
-        this.app.use("/", express.json());
-
         // Cores
         this.app.use(cors());
+
+        this.app.use(
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            (err, req: Request, res: Response, _next: NextFunction) => {
+                this.client.logger.error(err);
+                res.status(500).send("Something went wrong!");
+            }
+        );
+
+        this.app.set("view engine", "ejs");
+        this.app.set("views", path.join(__dirname, "../../assets/html"));
 
         if (process.env.NODE_ENV === "development") {
             this.app.use(morgan("dev"));

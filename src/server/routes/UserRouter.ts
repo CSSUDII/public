@@ -6,20 +6,20 @@ import rateLimit from "express-rate-limit";
 import { BaseRouter } from "../../express/BaseRouter";
 import { Client } from "../../client/Client";
 import ClassRouter from "../../express/ClassRouter";
-import { ClassUse, Get, Post } from "../../express/handlers";
+import { Use, Get, Post } from "../../express/handlers";
 import { User } from "@cssudii/prisma";
 
 @ClassRouter("/auth")
-@ClassUse(
+@Use(
     rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 100,
         message: "You are being rate limited!",
     })
 )
-@ClassUse(express.urlencoded({ extended: false }))
-@ClassUse(express.json)
-@ClassUse((_req: Request, res: Response, next: NextFunction) => {
+@Use(express.urlencoded({ extended: false }))
+@Use(express.json())
+@Use((_req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
@@ -33,6 +33,11 @@ export class UserRouter extends BaseRouter {
     constructor(client: Client) {
         super(client);
         this.configToken = this.client.config.token;
+    }
+
+    @Get("")
+    public async index(req: Request, res: Response): Promise<void> {
+        res.send("test");
     }
 
     @Post("/register")
@@ -119,7 +124,7 @@ export class UserRouter extends BaseRouter {
 
         if (!validPassword) {
             res.status(400).json({
-                error: "Password is wrong",
+                error: "Invalid password",
                 auth: false,
                 token: null,
             });
@@ -141,7 +146,7 @@ export class UserRouter extends BaseRouter {
     }
 
     @Get("/logout")
-    public logout(req: Request, res: Response): void {
+    public logout(_req: Request, res: Response): void {
         res.status(200).send({ auth: false, token: null });
         res.destroy();
     }
