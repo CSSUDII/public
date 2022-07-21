@@ -7,12 +7,13 @@ import { PrismaClient } from "@cssudii/prisma";
 
 export class Client {
     public logger: Logger;
-    public config = { host: "0.0.0.0", port: 8080, token: "a" };
+    public config = { host: "0.0.0.0", port: 8080, token: "a", secret: "b" };
 
     public server: Server;
     public prisma: PrismaClient;
 
     private http: http.Server;
+    private static instance: Client;
 
     /**
      * Creates a new Client
@@ -42,6 +43,8 @@ export class Client {
 
         this.server = new Server(this);
         this.prisma = new PrismaClient();
+
+        Client.instance = this;
     }
 
     private async initDatabase(): Promise<void> {
@@ -71,5 +74,9 @@ export class Client {
     public async distroy() {
         this.prisma.$disconnect();
         this.http.close();
+    }
+
+    public static getInstance() {
+        return Client.instance;
     }
 }

@@ -7,6 +7,7 @@ import cors from "cors";
 import morgan from "morgan";
 
 import { Request, Response, NextFunction } from "express";
+import session from "express-session";
 
 import { MetadataKeys } from "../express/metadata";
 import { IRouter, IUse } from "../express/handlers";
@@ -72,12 +73,22 @@ export class Server {
             }
 
             for (const r of routers) {
-                expressRouter[r.method](
-                    r.path,
-                    baseRouterInstance[String(r.handlerName)].bind(
-                        baseRouterInstance
-                    )
-                );
+                if (r.middlewares !== undefined && r.middlewares !== null) {
+                    expressRouter[r.method](
+                        r.path,
+                        r.middlewares,
+                        baseRouterInstance[String(r.handlerName)].bind(
+                            baseRouterInstance
+                        )
+                    );
+                } else {
+                    expressRouter[r.method](
+                        r.path,
+                        baseRouterInstance[String(r.handlerName)].bind(
+                            baseRouterInstance
+                        )
+                    );
+                }
 
                 info.push({
                     api: `${r.method.toLocaleUpperCase()} ${basePath + r.path}`,
@@ -90,20 +101,34 @@ export class Server {
     }
 
     private init(): void {
-        // Setup Routers
-        this.setupRoutes();
-
         // Security Stuff
         this.app.use(helmet());
 
         // Cores
         this.app.use(cors());
+        this.app.use(
+            session({
+                secret: this.client.config.secret,
+                resave: true,
+                saveUninitialized: true,
+            })
+        );
+
+        // Setup Routers
+        this.setupRoutes();
 
         this.app.use(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            (err, req: Request, res: Response, _next: NextFunction) => {
-                this.client.logger.error(err);
-                res.status(500).send("Something went wrong!");
+            (err, _req: Request, res: Response, _next: NextFunction) => {
+                if (process.env.NODE_ENV === "development")
+                    this.client.logger.error(err.stack);
+                res.status(500).json({
+                    message: "Something went wrong!",
+                    error:
+                        process.env["NODE_ENV"] === "development"
+                            ? err.stack
+                            : err,
+                });
             }
         );
 

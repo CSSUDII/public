@@ -3262,7 +3262,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.13":
+"@types/express-session@npm:^1.17.5":
+  version: 1.17.5
+  resolution: "@types/express-session@npm:1.17.5"
+  dependencies:
+    "@types/express": "*"
+  checksum: f6995f7720a18546bcb10cc707cf8c9c92455eb4319c0c50c57e9b9b10ed20dc379d74d5e4c3323fe4e924238b75e13c97822c9d81a80fa064ddc71654c1059d
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:*, @types/express@npm:^4.17.13":
   version: 4.17.13
   resolution: "@types/express@npm:4.17.13"
   dependencies:
@@ -5447,6 +5456,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:0.4.2":
+  version: 0.4.2
+  resolution: "cookie@npm:0.4.2"
+  checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
+  languageName: node
+  linkType: hard
+
 "cookie@npm:0.5.0":
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
@@ -6368,6 +6384,22 @@ __metadata:
   peerDependencies:
     express: ^4 || ^5
   checksum: 3125332fc3a73f0c50eaece169fa8d956d212f7b5c4dcaaa713fbe00fea6edc1a030705a71b60b8c8b5734c5b03004be38f843336e0bba4116a51726297f35e4
+  languageName: node
+  linkType: hard
+
+"express-session@npm:^1.17.3":
+  version: 1.17.3
+  resolution: "express-session@npm:1.17.3"
+  dependencies:
+    cookie: 0.4.2
+    cookie-signature: 1.0.6
+    debug: 2.6.9
+    depd: ~2.0.0
+    on-headers: ~1.0.2
+    parseurl: ~1.3.3
+    safe-buffer: 5.2.1
+    uid-safe: ~2.1.5
+  checksum: 1021a793433cbc6a1b32c803fcb2daa1e03a8f50dd907e8745ae57994370315a5cfde5b6ef7b062d9a9a0754ff268844bda211c08240b3a0e01014dcf1073ec5
   languageName: node
   linkType: hard
 
@@ -8500,6 +8532,18 @@ __metadata:
     slash: ^3.0.0
     stack-utils: ^2.0.3
   checksum: 1f266854166dcc6900d75a88b54a25225a2f3710d463063ff1c99021569045c35c7d58557b25447a17eb3a65ce763b2f9b25550248b468a9d4657db365f39e96
+  languageName: node
+  linkType: hard
+
+"jest-mock-extended@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "jest-mock-extended@npm:2.0.7"
+  dependencies:
+    ts-essentials: ^7.0.3
+  peerDependencies:
+    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0 || ^28.0.0
+    typescript: ^3.0.0 || ^4.0.0
+  checksum: e9928f1c1e4c9d1bb9746e0f0791e7b0c5b91474d10ed07c6f59e80294830b46b9f6f99b418e4ebcb3641db7957f2014317ab4267e56b676789f7013db72aa8e
   languageName: node
   linkType: hard
 
@@ -11203,6 +11247,7 @@ __metadata:
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.13
     "@types/express-rate-limit": ^6.0.0
+    "@types/express-session": ^1.17.5
     "@types/gulp": ^4.0.9
     "@types/gulp-babel": ^6.1.30
     "@types/gulp-uglify": ^3.0.7
@@ -11225,6 +11270,7 @@ __metadata:
     eslint: ^8.19.0
     express: ^4.17.3
     express-rate-limit: ^6.3.0
+    express-session: ^1.17.3
     gulp: ^4.0.2
     gulp-babel: ^8.0.0
     gulp-typescript: ^6.0.0-alpha.1
@@ -11234,6 +11280,7 @@ __metadata:
     husky: ^8.0.1
     inklog.js: ^1.2.1
     jest: ^28.1.3
+    jest-mock-extended: ^2.0.7
     jimp: ^0.16.1
     jsonwebtoken: ^8.5.1
     morgan: ^1.10.0
@@ -11362,6 +11409,13 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
+  languageName: node
+  linkType: hard
+
+"random-bytes@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "random-bytes@npm:1.0.0"
+  checksum: 09faa256394aa2ca9754aa57e92a27c452c3e97ffb266e98bebb517332e9df7168fea393159f88d884febce949ba8bec8ddb02f03342da6c6023ecc7b155e0ae
   languageName: node
   linkType: hard
 
@@ -12969,6 +13023,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-essentials@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "ts-essentials@npm:7.0.3"
+  peerDependencies:
+    typescript: ">=3.7.0"
+  checksum: 74d75868acf7f8b95e447d8b3b7442ca21738c6894e576df9917a352423fde5eb43c5651da5f78997da6061458160ae1f6b279150b42f47ccc58b73e55acaa2f
+  languageName: node
+  linkType: hard
+
 "ts-jest@npm:^28.0.7":
   version: 28.0.7
   resolution: "ts-jest@npm:28.0.7"
@@ -13194,6 +13257,15 @@ __metadata:
   bin:
     uglifyjs: bin/uglifyjs
   checksum: 5b62e748b7fa1d982f0949ed1876b9367dcde4782f74159f4ea0b3d130835336eb0245e090456ec057468d937eb016114677bb38a7a4fdc7f68c3d002ca760ee
+  languageName: node
+  linkType: hard
+
+"uid-safe@npm:~2.1.5":
+  version: 2.1.5
+  resolution: "uid-safe@npm:2.1.5"
+  dependencies:
+    random-bytes: ~1.0.0
+  checksum: 07536043da9a026f4a2bc397543d0ace7587449afa1d9d2c4fd3ce76af8a5263a678788bcc429dff499ef29d45843cd5ee9d05434450fcfc19cc661229f703d1
   languageName: node
   linkType: hard
 

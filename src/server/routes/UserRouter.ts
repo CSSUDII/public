@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Response, Request, NextFunction } from "express";
 
 import jwt from "jsonwebtoken";
@@ -7,7 +8,13 @@ import { BaseRouter } from "../../express/BaseRouter";
 import { Client } from "../../client/Client";
 import ClassRouter from "../../express/ClassRouter";
 import { Use, Get, Post } from "../../express/handlers";
-import { User } from "@cssudii/prisma";
+import {
+    verifyRegister,
+    throw500,
+    throw400,
+} from "../functions/verifyRegister";
+import { verifyMe } from "../functions/verifyMe";
+import { verifyLogin } from "../functions/verifyLogin";
 
 @ClassRouter("/auth")
 @Use(
@@ -36,76 +43,67 @@ export class UserRouter extends BaseRouter {
     }
 
     @Get("")
-    public async index(req: Request, res: Response): Promise<void> {
-        res.send("test");
+    public async index(_req: Request, res: Response): Promise<void> {
+        res.status(200).send("GET /auth");
     }
 
-    @Post("/register")
-    public async register(req: Request, res: Response): Promise<void> {
-        const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-
-        const doseEmailExist = this.client.prisma.user.findUnique({
-            where: {
-                email: req.body.email,
-            },
-        });
-
-        if (await doseEmailExist) {
-            res.status(400).json({ error: "Email already exists" });
-            return;
-        }
-
-        await this.client.prisma.user
-            .create({
+    @Post("/register", verifyRegister)
+    public async register(req: Request, res: Response, _next: NextFunction) {
+        try {
+            const user = await this.client.prisma.user.create({
                 data: {
                     name: req.body.name,
                     email: req.body.email,
-                    password: hashedPassword,
+                    password: bcrypt.hashSync(req.body.password, 8),
                     role: "DEFAULT",
                 },
-            })
-            .then((user: User) => {
-                const token = jwt.sign({ id: user.id }, this.configToken, {
-                    expiresIn: 86400,
-                });
-                return res.status(200).send({ auth: true, token: token });
-            })
-            .catch((error) => {
-                res.status(500).json({
-                    auth: null,
-                    error: error,
-                    message: "There was a problem registering the user.",
-                });
             });
+
+            const token = jwt.sign(
+                { id: user.id, email: user.email, role: user.role },
+                this.configToken,
+                {
+                    expiresIn: 86400,
+                }
+            );
+
+            return res.status(200).send({ auth: true, token: token });
+        } catch (error) {
+            return throw500(res, "There was a problem registering the user.");
+        }
     }
 
-    @Get("/me")
-    public async me(req: Request, res: Response): Promise<void> {
-        await this.client.prisma.user
-            .findUnique({
+    @Get("/me", verifyMe)
+    public async me(req: Request, res: Response) {
+        try {
+            const user = await this.client.prisma.user.findUnique({
                 where: {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore type later
-                    id: req.user.id,
+                    id: req.session.user.id,
                 },
-            })
-            .then((user) => {
-                if (!user)
-                    return res
-                        .status(404)
-                        .json({ error: true, message: "User not found" });
-                return res.status(200).json({ error: false, user: user });
-            })
-            .catch((error) => {
-                return res.status(500).json({
-                    error: error,
-                    message: "There was a problem getting user info",
-                });
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    password: false,
+                    role: true,
+                },
             });
+
+            if (!user)
+                return res
+                    .status(404)
+                    .json({ error: true, message: "User not found" });
+
+            return res.status(200).json(user);
+        } catch (error) {
+            return throw500(res, "There was a problem getting user info.");
+        }
     }
 
-    @Post("/login")
-    public async login(req: Request, res: Response): Promise<void> {
+    @Post("/login", verifyLogin)
+    public async login(req: Request, res: Response, _next: NextFunction) {
         const user = await this.client.prisma.user.findUnique({
             where: {
                 email: req.body.email,
@@ -113,7 +111,7 @@ export class UserRouter extends BaseRouter {
         });
 
         if (!user) {
-            res.status(400).json({ error: "No user was found" });
+            res.status(400).json({ error: "User not found." });
             return;
         }
 
@@ -123,12 +121,7 @@ export class UserRouter extends BaseRouter {
         );
 
         if (!validPassword) {
-            res.status(400).json({
-                error: "Invalid password",
-                auth: false,
-                token: null,
-            });
-            return;
+            return throw400(res, "Password was not valid.");
         }
 
         const token = jwt.sign(
@@ -139,15 +132,22 @@ export class UserRouter extends BaseRouter {
             this.configToken
         );
 
-        res.header("x-access-token", token).json({
-            error: null,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        req.session.token = token;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        req.session.user = user;
+        return res.status(200).json({
             token,
         });
     }
 
-    @Get("/logout")
-    public logout(_req: Request, res: Response): void {
-        res.status(200).send({ auth: false, token: null });
+    @Post("/logout")
+    public logout(req: Request, res: Response) {
+        res.status(200).json({ success: true });
+
+        req.session = null;
         res.destroy();
     }
 }

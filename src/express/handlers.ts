@@ -11,6 +11,8 @@ export interface IRouter {
     method: Methods;
     path: string;
     handlerName: string | symbol;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    middlewares: any[];
 }
 
 export interface IUse {
@@ -19,7 +21,8 @@ export interface IUse {
 }
 
 const methodDecoratorFactory = (method: Methods) => {
-    return (path: string): MethodDecorator => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (path: string, ...middlewares: any[]): MethodDecorator => {
         return (target, propertyKey) => {
             const Class = target.constructor;
             const routers: IRouter[] = Reflect.hasMetadata(
@@ -32,6 +35,7 @@ const methodDecoratorFactory = (method: Methods) => {
                 method,
                 path,
                 handlerName: propertyKey,
+                middlewares: middlewares,
             });
 
             Reflect.defineMetadata(MetadataKeys.ROUTERS, routers, Class);

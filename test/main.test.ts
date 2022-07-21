@@ -32,6 +32,43 @@ describe("GET /auth", () => {
     });
 });
 
+describe("POST /auth/register", () => {
+    test("should repond with a 400 status code (no name)", async () => {
+        const res = await request(client.server.app).post("/auth/register");
+        expect(res.statusCode).toBe(400);
+    });
+
+    test("should repond with a 400 status code (no email)", async () => {
+        const res = await request(client.server.app)
+            .post("/auth/register")
+            .send({
+                name: "TestUser",
+            });
+        expect(res.statusCode).toBe(400);
+    });
+
+    test("should repond with a 400 status code (no password)", async () => {
+        const res = await request(client.server.app)
+            .post("/auth/register")
+            .send({
+                name: "TestUser",
+                email: "testuser@localhost",
+            });
+        expect(res.statusCode).toBe(400);
+    });
+
+    //test("should repond with a 200 status code", async () => {
+    //    const res = await request(client.server.app)
+    //        .post("/auth/register")
+    //        .send({
+    //            name: "TestUser",
+    //            email: "testuser@localhost",
+    //            password: "@asp-testpass",
+    //        });
+    //    expect(res.statusCode).toBe(200);
+    //});
+});
+
 describe("GET /v1/qrcode", () => {
     test("should respond with a 200 status code", async () => {
         const res = await request(client.server.app).get("/v1/qrcode/_TEST");

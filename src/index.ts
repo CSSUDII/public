@@ -6,6 +6,9 @@ import { Client } from "./client/Client";
 const client: Client = new Client({ slient: false });
 client.initialize();
 
+// for checkToken
+process.env.TOKEN = client.config.token;
+
 function exitHandler() {
     client.distroy();
     process.exit();
