@@ -1,7 +1,7 @@
 module.exports = {
     branches: [
-        /**
         "stable",
+        /**
         {
             name: "beta",
             prerelease: true,
