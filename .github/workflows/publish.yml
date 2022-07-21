@@ -18,8 +18,10 @@ jobs:
         node-version: 17.x
     - name: Install dependencies
       run: yarn --immutable
+    - run: DATABASE_URL=${{ secrets.DATABASE_URL }} yarn database:generate
     - name: Build
-      run: yarn gulp build:compile-ts
+      run: yarn gulp build:compile
+    - run: yarn tsc
     - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
